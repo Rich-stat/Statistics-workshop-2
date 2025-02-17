@@ -644,7 +644,13 @@ Click to see the Levene’s test output
 </div>
 </div>
 <p>In this case, the data in the 3 groups is normally distributed (P&gt;0.05) and the variances are homogeneous (P&gt;0.05). <br> <br> <br> <br><strong>Question: Are the mean values of the 3 groups statistically significantly different (<em>ie</em>, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people</strong><br></p>
-<p><br><br> <code>5.</code> <strong>THE ANOVA ANALYSIS:</strong> <br><code>5.1</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED &amp; THE VARIANCES ARE HOMOGENEOUS</strong><br> <br> <strong>The ANOVA:</strong></p>
+<p><br><br></p>
+<section id="the-anova-analysis" class="level6">
+<h6 class="anchored" data-anchor-id="the-anova-analysis"><code>5.</code> <strong>THE ANOVA ANALYSIS:</strong></h6>
+</section>
+<section id="if-the-data-is-normally-distributed-the-variances-are-homogeneous" class="level6">
+<h6 class="anchored" data-anchor-id="if-the-data-is-normally-distributed-the-variances-are-homogeneous"><code>5.1</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED &amp; THE VARIANCES ARE HOMOGENEOUS</strong></h6>
+<p><strong>The ANOVA:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>anova_1_factor <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">between =</span> Group, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -814,7 +820,11 @@ NOTE: n is number in each group</code></pre>
 </div>
 </div>
 </div>
-<p><br> <br> <br> <code>5.2</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED &amp; THE VARIANCES ARE NOT HOMOGENEOUS</strong> <br> <strong>The ANOVA:</strong></p>
+<p><br></p>
+</section>
+<section id="if-the-data-is-normally-distributed-the-variances-are-not-homogeneous" class="level6">
+<h6 class="anchored" data-anchor-id="if-the-data-is-normally-distributed-the-variances-are-not-homogeneous"><code>5.2</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED &amp; THE VARIANCES ARE NOT HOMOGENEOUS</strong></h6>
+<p><strong>The ANOVA:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>anova_1_factor <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">between =</span> Group, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -978,7 +988,11 @@ NOTE: n is number in each group</code></pre>
 </div>
 </div>
 </div>
-<p><br><br> <br><code>5.3</code> <strong>IF THE DATA IS NOT NORMALLY DISTRIBUTED</strong> <br> <strong>Kruskal-Wallis test:</strong></p>
+<p><br></p>
+</section>
+<section id="if-the-data-is-not-normally-distributed" class="level6">
+<h6 class="anchored" data-anchor-id="if-the-data-is-not-normally-distributed"><code>5.3</code> <strong>IF THE DATA IS NOT NORMALLY DISTRIBUTED</strong></h6>
+<p><strong>Kruskal-Wallis test:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>anova_1_factor <span class="sc">|&gt;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(Cholesterol <span class="sc">~</span> Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1159,6 +1173,7 @@ Click to see the result of the multiple comparison
 </div>
 </div>
 </div>
+</section>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>This example is one in which subjects are assigned to one of 3 treatment groups (Factor 1: Control, Drug 1 or Drug 2, as in the 1-Factor example). However, in this case we also want to find out if gender (Factor 2) affects the cholesterol results as well as treatment, and whether the effect of treatment depends on the gender (an interaction of the two factors)<br></p>
@@ -2583,7 +2598,13 @@ Click to see the result of the Shapiro-Wilk test
 </div>
 <p>Here, the data in all 3 groups is normally distributed so we can use the Repeated Measures ANOVA. If the data is NOT normally distributed (P&lt;0.05), use Friedman’s test (see below; this is a non-parametric equivalent of a repeated measures ANOVA)<br></p>
 <p><br><strong>NB</strong> no need for homogeneity of variance test as there are no ‘between’ factors. Sphericity is automatically calculated (Mauchly’s test).</p>
-<p><br><br> <strong>5. THE REPEATED MEASURES ANOVA</strong> <br><br><code>5.1</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED</strong> <br> <code>5.1a</code> <strong>Repeated measures ANOVA</strong>, including Mauchly’s Sphericity test<br></p>
+<p><br><br></p>
+<section id="the-repeated-measures-anova" class="level6">
+<h6 class="anchored" data-anchor-id="the-repeated-measures-anova"><strong>5. THE REPEATED MEASURES ANOVA</strong></h6>
+</section>
+<section id="if-the-data-is-normally-distributed" class="level6">
+<h6 class="anchored" data-anchor-id="if-the-data-is-normally-distributed"><code>5.1</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED</strong> <br></h6>
+<p><code>5.1a</code> <strong>Repeated measures ANOVA</strong>, including Mauchly’s Sphericity test<br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-46"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-46" data-target-annotation="1">1</button><span id="annotated-cell-46-1" class="code-annotation-target"><a href="#annotated-cell-46-1" aria-hidden="true" tabindex="-1"></a>anova_rm <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-46" data-target-annotation="2">2</button><span id="annotated-cell-46-2" class="code-annotation-target"><a href="#annotated-cell-46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(<span class="at">dv =</span> Cholesterol, <span class="at">wid =</span> ID, <span class="at">within =</span> Time, <span class="at">effect.size =</span> <span class="st">"pes"</span>)</span>
@@ -2745,7 +2766,11 @@ Click to see the result of the multiple comparison
 </div>
 </div>
 </div>
-<p><br><br><br> <code>5.2</code>. <strong>IF THE DATA IS NOT NORMALLY DISTRIBUTED: THE FRIEDMAN TEST</strong> <br> <code>5.2a</code> <strong>The Friedman test</strong></p>
+<p><br><br><br></p>
+</section>
+<section id="if-the-data-is-not-normally-distributed-1" class="level6">
+<h6 class="anchored" data-anchor-id="if-the-data-is-not-normally-distributed-1"><code>5.2</code>. <strong>IF THE DATA IS NOT NORMALLY DISTRIBUTED</strong></h6>
+<p><code>5.2a</code> <strong>The Friedman test</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-48"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-48-1"><a href="#annotated-cell-48-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-48" data-target-annotation="1">1</button><span id="annotated-cell-48-2" class="code-annotation-target"><a href="#annotated-cell-48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_test</span>(Cholesterol <span class="sc">~</span> Time <span class="sc">|</span> ID)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2933,6 +2958,7 @@ Click to see the effect size
 </div>
 </div>
 </div>
+</section>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p>This uses the same data as for the 1-Factor Anova example, but in this case we also have the age of each participant. We know that cholesterol is affected by age (from previous studies), so we want to control for this variable and analyse only if drug treatment group (control, drug 1 or drug 2) influences cholesterol levels irrespective of age.</p>

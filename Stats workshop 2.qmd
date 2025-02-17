@@ -45,7 +45,7 @@ library(FSA)
 
 <br> <br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
 
-:::::::::::::::::::::::::::::::::::::::::::::::: panel-tabset
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: panel-tabset
 ### **1-FACTOR ANOVA**
 
 This example is based on an experiment to test if drugs can reduce cholesterol levels. Subjects were randomly divided into 3 groups: One group is given no drug (control group), the second is given Drug 1 and the third group is given Drug 2.
@@ -311,7 +311,12 @@ anova_1_factor |>
 
 In this case, the data in the 3 groups is normally distributed (P\>0.05) and the variances are homogeneous (P\>0.05). <br> <br> <br> <br>**Question: Are the mean values of the 3 groups statistically significantly different (*ie*, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people**<br>
 
-<br><br> `5.` **THE ANOVA ANALYSIS:** <br>`5.1` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE HOMOGENEOUS**<br> <br> **The ANOVA:**
+<br><br> 
+
+###### `5.` **THE ANOVA ANALYSIS:**
+###### `5.1` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE HOMOGENEOUS** 
+
+**The ANOVA:**
 
 ```{r}
 #| label: 1.fctr.norm
@@ -379,7 +384,10 @@ pwr.anova.test(k=3, n=20, f=0.389, sig.level=0.05, power=NULL)
 So, the power of this test is 75.1%.
 :::
 
-<br> <br> <br> `5.2` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE NOT HOMOGENEOUS** <br> **The ANOVA:**
+<br>
+
+###### `5.2` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE NOT HOMOGENEOUS**
+**The ANOVA:**
 
 ```{r}
 #| label: 1.fctr.norm.not.hom
@@ -445,7 +453,10 @@ pwr.anova.test(k=3, n=20, f=0.389, sig.level=0.05, power=NULL)
 So, the power of this test is 75.1%.
 :::
 
-<br><br> <br>`5.3` **IF THE DATA IS NOT NORMALLY DISTRIBUTED** <br> **Kruskal-Wallis test:**
+<br>
+
+###### `5.3` **IF THE DATA IS NOT NORMALLY DISTRIBUTED** 
+**Kruskal-Wallis test:**
 
 ```{r}
 #| label: 1.fct.not.norm
@@ -1092,7 +1103,11 @@ Here, the data in all 3 groups is normally distributed so we can use the Repeate
 
 <br>**NB** no need for homogeneity of variance test as there are no 'between' factors. Sphericity is automatically calculated (Mauchly's test).
 
-<br><br> **5. THE REPEATED MEASURES ANOVA** <br><br>`5.1` **IF THE DATA IS NORMALLY DISTRIBUTED** <br> `5.1a` **Repeated measures ANOVA**, including Mauchly's Sphericity test<br>
+<br><br> 
+
+###### **5. THE REPEATED MEASURES ANOVA** 
+###### `5.1` **IF THE DATA IS NORMALLY DISTRIBUTED** <br> 
+`5.1a` **Repeated measures ANOVA**, including Mauchly's Sphericity test<br>
 
 ```{r}
 #| label: anova_RM_norm
@@ -1150,7 +1165,10 @@ aov_rm_phoc |>
 ```
 :::
 
-<br><br><br> `5.2`. **IF THE DATA IS NOT NORMALLY DISTRIBUTED: THE FRIEDMAN TEST** <br> `5.2a` **The Friedman test**
+<br><br><br> 
+
+###### `5.2`. **IF THE DATA IS NOT NORMALLY DISTRIBUTED** 
+`5.2a` **The Friedman test**
 
 ```{r}
 #| label: anova_RM_FT
@@ -1159,7 +1177,8 @@ aov_rm_phoc |>
 chol_RM |>
   friedman_test(Cholesterol ~ Time | ID)  #<1>
 ```
-1. Friedman test carried out on the Cholesterol data grouped by Time category, and ordered by the ID number of each person
+
+1.  Friedman test carried out on the Cholesterol data grouped by Time category, and ordered by the ID number of each person
 
 ::: {.callout-note collapse="true" title="Click to see the result of the Friedman test" icon="false"}
 ```{r}
@@ -1223,10 +1242,11 @@ This uses the same data as for the 1-Factor Anova example, but in this case we a
 ::: {.callout-note collapse="true" title="Click guidance notes" icon="true"}
 -   Download the file *ANCOVA_cholesterol.xlsx* from Canvas and save it to your working directory.
 -   Check that the data is arranged in a 'tidy' format
--   In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: `setwd("O:/")`.<br><br> 
+-   In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: `setwd("O:/")`.<br><br>
 
 Then click the 'More' cog icon and select 'Go to working directory' and find your folder - set that as your final working directory.
 :::
+
 <br>
 
 `2.` **Import the data and save it as a dataframe called *ancova_chol*:**
@@ -1240,8 +1260,9 @@ ancova_chol <- import("ANCOVA_cholesterol.xlsx") #<1>
 ancova_chol |>
   head()    #<2>
 ```
-1. Import the data, save it as a dataframe called 'ancova_chol' 
-2. View the 1st 6 rows
+
+1.  Import the data, save it as a dataframe called 'ancova_chol'
+2.  View the 1st 6 rows
 
 ::: {.callout-note collapse="true" title="Click to see the first 6 rows of the dataframe" icon="false"}
 ```{r}
@@ -1275,7 +1296,8 @@ ancova_chol |>
   summarise_all(class) |>
   kable(align = 'l')
 ```
-The Group variable is a character (text) variable.  The other two are numeric.
+
+The Group variable is a character (text) variable. The other two are numeric.
 :::
 
 <br>
@@ -1292,7 +1314,8 @@ ancova_chol <- ancova_chol |>
 ancova_chol |>
   summarise_all(class)
 ```
-1. sends the ancova_chol dataframe to `mutate()` which converts Group to be a factor.  Saves the changed dataframe to one with the same name (*ie* it over-writes the dataframe)
+
+1.  sends the ancova_chol dataframe to `mutate()` which converts Group to be a factor. Saves the changed dataframe to one with the same name (*ie* it over-writes the dataframe)
 
 ::: {.callout-note collapse="true" title="Click to see the data types of each variable" icon="false"}
 ```{r}
@@ -1306,11 +1329,11 @@ ancova_chol |>
   summarise_all(class) |>
   kable(align = 'l')
 ```
+
 You can see that the Group variable is now a factor.
 :::
 
-<br>
-<br>Save the dataframe as an RData file so that you don't have to do the above again:
+<br> <br>Save the dataframe as an RData file so that you don't have to do the above again:
 
 ```{r}
 #| label: ancovaRData 
@@ -1318,9 +1341,7 @@ You can see that the Group variable is now a factor.
 save(ancova_chol, file = "ancova_chol.RData")
 ```
 
-<br><br> `3.` **Explore the data** <br>
-`3a.` **Descriptive statistics**<br>
-<br> First, get summary descriptive statistics for Cholesterol grouped by treatment Group:
+<br><br> `3.` **Explore the data** <br> `3a.` **Descriptive statistics**<br> <br> First, get summary descriptive statistics for Cholesterol grouped by treatment Group:
 
 ```{r}
 #| label: ancovadesc1
@@ -1336,6 +1357,7 @@ describeBy(Cholesterol ~ Group, data = ancova_chol)
 #| eval: true
 describeBy(Cholesterol ~ Group, data = ancova_chol)
 ```
+
 You can see that the mean values for Control, Drug 1 and Drug 1 are 140.5, 118.1 and 102.6, respectively.
 :::
 
@@ -1355,9 +1377,9 @@ describeBy(Age ~ Group, data = ancova_chol)
 #| eval: true
 describeBy(Age ~ Group, data = ancova_chol)
 ```
+
 You can see that the mean age for the Drug 2 group is lower than for the other two groups.
 :::
-
 
 <br>`3b.` **Bar chart**<br>First, calculate mean & standard error (SE) cholesterol for each treatment group and save in an object called 'ancova_mean_table':
 
@@ -1372,8 +1394,9 @@ ancova_mean_table <- ancova_chol |>
 
 ancova_mean_table 
 ```
-1. Sends ancova_chol to group_by() which groups the data by treatment Group
-2. Creates new columns for mean and SE of cholesterol, placing them in columns titles 'mean_chol' and 'SE_chol'
+
+1.  Sends ancova_chol to group_by() which groups the data by treatment Group
+2.  Creates new columns for mean and SE of cholesterol, placing them in columns titles 'mean_chol' and 'SE_chol'
 
 ::: {.callout-note collapse="true" title="Click to see the mean and se values" icon="false"}
 ```{r}
@@ -1405,8 +1428,9 @@ ancova_mean_table |>
        subtitle = "Bars = standard error",
        y = "Cholesterol (mg/dL)")
 ```
-1. Uses the mean and se values in the table  to create a bar chart with Group on the x-axis and the mean cholesterolo on the y-axis
-2. Creates error bars using the SE values in the table (mean +/- SE)
+
+1.  Uses the mean and se values in the table to create a bar chart with Group on the x-axis and the mean cholesterolo on the y-axis
+2.  Creates error bars using the SE values in the table (mean +/- SE)
 
 ::: {.callout-note collapse="true" title="Click to see the bar chart" icon="false"}
 ```{r}
@@ -1424,8 +1448,7 @@ ancova_mean_table |>
 ```
 :::
 
-<br>
-<br>`4.` **Check assumptions of ANCOVA:**<br> `A.` Check relationship of covariate (Age) and outcome (Cholesterol) is linear in the 3 groups:
+<br> <br>`4.` **Check assumptions of ANCOVA:**<br> `A.` Check relationship of covariate (Age) and outcome (Cholesterol) is linear in the 3 groups:
 
 ```{r}
 #| label: ancova_assump1
@@ -1436,8 +1459,9 @@ ancova_chol |>
   ggscatter(x = "Age", y = "Cholesterol", color = "Group", add = "reg.line")+  #<1>
   stat_regline_equation(aes(label =  paste(after_stat(eq.label), after_stat(rr.label), sep = "~~~~"), color = Group))  #<2>
 ```
-1. Creates a scatter plot with Age on the x-axis and Cholesterol on the y-axis, coloured by Group, and adds a regression line
-2. Adds regression equations for each Group Group
+
+1.  Creates a scatter plot with Age on the x-axis and Cholesterol on the y-axis, coloured by Group, and adds a regression line
+2.  Adds regression equations for each Group Group
 
 ::: {.callout-note collapse="true" title="Click to see the scatter plot" icon="false"}
 ```{r}
@@ -1472,8 +1496,8 @@ ancova_chol |>
   anova_test(Cholesterol ~ Group*Age, effect.size = 'pes') |>
   kable(align = 'l')
 ```
-Here, the Group:Age interaction term P = 0.659.<br><br>
-*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.
+
+Here, the Group:Age interaction term P = 0.659.<br><br> *NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.
 :::
 
 <br><br> `C`. Homogeneity of variance for outcomes (cholesterol levels) for each group <br>(P should be \>0.05):
@@ -1507,8 +1531,9 @@ df_ancov <- ancova_chol |>
   anova_test(Cholesterol ~ Age + Group, effect.size = 'pes')  #<1>
 df_ancov   #<2>
 ```
-1. Dataframe sent to anova_test: outcome grouped by covariate + grouping variable. Result stored in a new object called `df_ancov`.
-2. View the results of the ANCOVA
+
+1.  Dataframe sent to anova_test: outcome grouped by covariate + grouping variable. Result stored in a new object called `df_ancov`.
+2.  View the results of the ANCOVA
 
 ::: {.callout-note collapse="true" title="Click to see the result of the ANCOVA" icon="false"}
 ```{r}
@@ -1520,11 +1545,11 @@ df_ancov <- ancova_chol |>
 df_ancov |>
   kable(align = 'l')
 ```
-*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br>
-<br> The statistical significance (P) of the effect of Group on Cholesterol is 1.58 x 10^-16^ when the effect of age is removed (Without removing age, the effect of group was P = 8 x 10^-7^; see 1-Factor ANOVA tab section 5.1).
+
+*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br> <br> The statistical significance (P) of the effect of Group on Cholesterol is 1.58 x 10^-16^ when the effect of age is removed (Without removing age, the effect of group was P = 8 x 10^-7^; see 1-Factor ANOVA tab section 5.1).
 :::
 
-Because P<0.05, we need to do a post-hoc comparison test to find out which group is different from which.<br> (*NB* this also calculates the adjusted means, so is useful to do even if P\>0.05).
+Because P\<0.05, we need to do a post-hoc comparison test to find out which group is different from which.<br> (*NB* this also calculates the adjusted means, so is useful to do even if P\>0.05).
 
 <br>`b.` **Post-hoc comparison test:**
 
@@ -1537,8 +1562,9 @@ phc <- ancova_chol %>%
                p.adjust.method = "bonferroni")  #<1>
 phc  #<2>
 ```
-1. Dataframe sent to emmeans_test to do a multiple comparison with adjusted means (adjusted for Age).  Calculates this for Cholesterol grouped by Group, adjusting for the covariate Age. Bonferroni correction to reduce the chance of a Type 1 error.
-2. The results of the multiple comparison are stored in an object called `phc`, so run this object name to see contents.
+
+1.  Dataframe sent to emmeans_test to do a multiple comparison with adjusted means (adjusted for Age). Calculates this for Cholesterol grouped by Group, adjusting for the covariate Age. Bonferroni correction to reduce the chance of a Type 1 error.
+2.  The results of the multiple comparison are stored in an object called `phc`, so run this object name to see contents.
 
 ::: {.callout-note collapse="true" title="Click to see the result of the multiple comparison" icon="false"}
 ```{r}
@@ -1550,8 +1576,8 @@ phc <- ancova_chol %>%
                p.adjust.method = "bonferroni")
 phc 
 ```
-'p.adj' reported are the adjusted p-values for comparisons between groups for Cholesterol, adjusted by covariate (Age) and bonferroni correction.<br>
-<br>Here, The Control and Drug_1 and the Drug_1 and Drug_2 cholesterol levels are significantly different. The Drug_2 group is not sig different to the Control group.
+
+'p.adj' reported are the adjusted p-values for comparisons between groups for Cholesterol, adjusted by covariate (Age) and bonferroni correction.<br> <br>Here, The Control and Drug_1 and the Drug_1 and Drug_2 cholesterol levels are significantly different. The Drug_2 group is not sig different to the Control group.
 :::
 
 <br>`c.` **The estimated marginal means (= adjusted means) for each group:**
@@ -1563,7 +1589,8 @@ phc
 adj.means <-get_emmeans(phc) #<1>
 adj.means
 ```
-1. Gets the estimated marginal means from the phs object created above, and stores them in another object called `adj.means`.  To see them, run the object name.
+
+1.  Gets the estimated marginal means from the phs object created above, and stores them in another object called `adj.means`. To see them, run the object name.
 
 ::: {.callout-note collapse="true" title="Click to see the estimated marginal (adjusted) means" icon="false"}
 ```{r}
@@ -1574,12 +1601,14 @@ adj.means <-get_emmeans(phc) #<1>
 adj.means |>
   kable(align = 'l')
 ```
+
 So, these mean cholesterol values have changed from Control = 140, Drug 1 = 118 and Drug 2 = 103 to 129, 102 and 130, respectively, after the influence of age was removed.
 :::
 
 Compare the bar chart at the start of this section with the one below which shows the estimated marginal means, adjusted for Age.
 
-<br>**Bar chart with the adjusted means:** 
+<br>**Bar chart with the adjusted means:**
+
 ```{r}
 #| label: ancovabaremm
 #| echo: TRUE
@@ -1593,9 +1622,9 @@ adj.means |> #<1>
        subtitle = "Bars = standard error", 
        y = "Cholesterol (mg/dL)")
 ```
-1. Sends the `adj.means` contents to ggplot() which creates a bar chart with Group on the x-axis and the adjusted means on the y-axis
-2. Error bars created of mean +/- se for each Group.
 
+1.  Sends the `adj.means` contents to ggplot() which creates a bar chart with Group on the x-axis and the adjusted means on the y-axis
+2.  Error bars created of mean +/- se for each Group.
 
 ::: {.callout-note collapse="true" title="Click to see the bar chart with the estimated marginal (adjusted) means" icon="false"}
 ```{r}
@@ -1612,7 +1641,4 @@ adj.means |>
        y = "Cholesterol (mg/dL)")
 ```
 :::
-
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
