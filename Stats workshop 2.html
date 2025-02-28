@@ -2160,23 +2160,23 @@ Click guidance notes
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ANOVA_RM_Cholesterol.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><br> View the 1st 6 rows of the dataframe:</p>
+<p><br> View the whole dataframe carefully. Note the arrangement of the data: the ‘Before’, ‘After.4.weeks’ and ‘After.8.weeks’ columns have been placed in 1 column headed ‘Time’. Similarly, all of the Cholesterol values are in 1 column.<br> The ID of each person has also been placed in the first column</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>chol_RM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the 1st 6 rows">
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the whole dataframe">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click to see the 1st 6 rows
+Click to see the whole dataframe
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>The data is tidy: each row represents one observation and each column is a different variable:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -2218,11 +2218,250 @@ Click to see the 1st 6 rows
 <td style="text-align: left;">Before</td>
 <td style="text-align: left;">7.49</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">8.05</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">5.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">5.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">3.91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">6.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">6.44</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">6.17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">7.67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">7.34</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">6.85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">5.13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">Before</td>
+<td style="text-align: left;">5.73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">5.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">6.20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">5.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">4.27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">7.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">7.12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">7.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">4.63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">5.31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">3.70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">6.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">5.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">5.56</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">7.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">6.84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">6.40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">4.52</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">After.4.weeks</td>
+<td style="text-align: left;">5.13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">6.13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">4.15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">7.67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">7.05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">7.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">4.67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">3.66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">13</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">14</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">6.96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">6.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">6.29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">17</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">4.45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">18</td>
+<td style="text-align: left;">After.8.weeks</td>
+<td style="text-align: left;">5.17</td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The data is tidy: each row represents a person and each column is a different variable.</p>
 </div>
 </div>
 </div>
@@ -2596,7 +2835,7 @@ Click to see the result of the Shapiro-Wilk test
 </div>
 </div>
 </div>
-<p>Here, the data in all 3 groups is normally distributed so we can use the Repeated Measures ANOVA. If the data is NOT normally distributed (P&lt;0.05), use Friedman’s test (see below; this is a non-parametric equivalent of a repeated measures ANOVA)<br></p>
+<p>Here, the data in all 3 groups is normally distributed so we can use the Repeated Measures ANOVA. If the data is NOT normally distributed (P&lt;0.05), use Friedman’s test (see below; this is a non-parametric equivalent of a repeated measures ANOVA)</p>
 <p><br><strong>NB</strong> no need for homogeneity of variance test as there are no ‘between’ factors. Sphericity is automatically calculated (Mauchly’s test).</p>
 <p><br><br></p>
 <section id="the-repeated-measures-anova" class="level6">
@@ -2870,7 +3109,7 @@ Click to see the effect size
 </div>
 </div>
 </div>
-<p><br><br> <strong>5.2c Multiple comparison (Wilcoxon signed rank test)</strong><br> Do this if the Friedman test gives a P-value &lt;0.05.</p>
+<p><br><br> <code>5.2c</code> <strong>Multiple comparison (Wilcoxon signed rank test)</strong><br> Do this if the Friedman test gives a P-value &lt;0.05.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

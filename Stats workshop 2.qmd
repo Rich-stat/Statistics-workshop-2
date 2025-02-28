@@ -16,6 +16,7 @@ code-annotations: select
 #| label: kable
 #| echo: false
 #| eval: true
+#| warning: false
 library(knitr)
 ```
 
@@ -311,10 +312,11 @@ anova_1_factor |>
 
 In this case, the data in the 3 groups is normally distributed (P\>0.05) and the variances are homogeneous (P\>0.05). <br> <br> <br> <br>**Question: Are the mean values of the 3 groups statistically significantly different (*ie*, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people**<br>
 
-<br><br> 
+<br><br>
 
 ###### `5.` **THE ANOVA ANALYSIS:**
-###### `5.1` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE HOMOGENEOUS** 
+
+###### `5.1` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE HOMOGENEOUS**
 
 **The ANOVA:**
 
@@ -387,6 +389,7 @@ So, the power of this test is 75.1%.
 <br>
 
 ###### `5.2` **IF THE DATA IS NORMALLY DISTRIBUTED & THE VARIANCES ARE NOT HOMOGENEOUS**
+
 **The ANOVA:**
 
 ```{r}
@@ -455,7 +458,8 @@ So, the power of this test is 75.1%.
 
 <br>
 
-###### `5.3` **IF THE DATA IS NOT NORMALLY DISTRIBUTED** 
+###### `5.3` **IF THE DATA IS NOT NORMALLY DISTRIBUTED**
+
 **Kruskal-Wallis test:**
 
 ```{r}
@@ -867,27 +871,25 @@ Then click the 'More' cog icon and select 'Go to working directory' and find you
 chol_RM <- import("ANOVA_RM_Cholesterol.xlsx")
 ```
 
-<br> View the 1st 6 rows of the dataframe:
+<br> View the whole dataframe carefully. Note the arrangement of the data: the 'Before', 'After.4.weeks' and 'After.8.weeks' columns have been placed in 1 column headed 'Time'.   Similarly, all of the Cholesterol values are in 1 column.<br>
+The ID of each person has also been placed in the first column
 
 ```{r}
 #| label: head.rm
 #| echo: TRUE
 #| eval: false
-chol_RM |>
-  head()
+chol_RM
 ```
 
-::: {.callout-note collapse="true" title="Click to see the 1st 6 rows" icon="false"}
+::: {.callout-note collapse="true" title="Click to see the whole dataframe" icon="false"}
+The data is tidy: each row represents one observation and each column is a different variable:
 ```{r}
 #| label: head.rm1
 #| echo: false
 #| eval: true
 chol_RM |>
-  head() |>
   kable(align = 'l')
 ```
-
-The data is tidy: each row represents a person and each column is a different variable.
 :::
 
 <br> Check the types of data in each column/variable:
@@ -1099,14 +1101,16 @@ chol_RM |>
 ```
 :::
 
-Here, the data in all 3 groups is normally distributed so we can use the Repeated Measures ANOVA. If the data is NOT normally distributed (P\<0.05), use Friedman's test (see below; this is a non-parametric equivalent of a repeated measures ANOVA)<br>
+Here, the data in all 3 groups is normally distributed so we can use the Repeated Measures ANOVA. If the data is NOT normally distributed (P\<0.05), use Friedman's test (see below; this is a non-parametric equivalent of a repeated measures ANOVA)
 
 <br>**NB** no need for homogeneity of variance test as there are no 'between' factors. Sphericity is automatically calculated (Mauchly's test).
 
-<br><br> 
+<br><br>
 
-###### **5. THE REPEATED MEASURES ANOVA** 
-###### `5.1` **IF THE DATA IS NORMALLY DISTRIBUTED** <br> 
+###### **5. THE REPEATED MEASURES ANOVA**
+
+###### `5.1` **IF THE DATA IS NORMALLY DISTRIBUTED** <br>
+
 `5.1a` **Repeated measures ANOVA**, including Mauchly's Sphericity test<br>
 
 ```{r}
@@ -1165,9 +1169,10 @@ aov_rm_phoc |>
 ```
 :::
 
-<br><br><br> 
+<br><br><br>
 
-###### `5.2`. **IF THE DATA IS NOT NORMALLY DISTRIBUTED** 
+###### `5.2`. **IF THE DATA IS NOT NORMALLY DISTRIBUTED**
+
 `5.2a` **The Friedman test**
 
 ```{r}
@@ -1211,7 +1216,7 @@ chol_RM |>
 ```
 :::
 
-<br><br> **5.2c Multiple comparison (Wilcoxon signed rank test)**<br> Do this if the Friedman test gives a P-value \<0.05.
+<br><br> `5.2c` **Multiple comparison (Wilcoxon signed rank test)**<br> Do this if the Friedman test gives a P-value \<0.05.
 
 ```{r}
 #| label: wilcox_FT
