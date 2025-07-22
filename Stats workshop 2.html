@@ -67,6 +67,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="Stats workshop 2_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Stats workshop 2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Stats workshop 2_files/libs/bootstrap/bootstrap-d5ac29a56adf641187225d49675c3d41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="Stats workshop 2_files/libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="Stats workshop 2_files/libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="Stats workshop 2_files/libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 
 
 </head>
@@ -128,6 +131,7 @@ Click to see packages to install (Copy and paste to Script editor)
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pwr)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FSA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><em>NB</em> If you get a message saying that a packages does not exist, you need to install it first with <code>install.packages("name_of_package")</code></p>
 </div>
 </div>
 </div>
@@ -137,14 +141,14 @@ Click to see packages to install (Copy and paste to Script editor)
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>This example is based on an experiment to test if drugs can reduce cholesterol levels. Subjects were randomly divided into 3 groups: One group is given no drug (control group), the second is given Drug 1 and the third group is given Drug 2.</p>
-<p><br> <strong>1. Download the Excel file <em>1-Factor_ANOVA_cholesterol.xlsx</em> from Canvas</strong></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Click guidance notes">
+<p><br> <strong>1. Download the Excel file</strong> <code>1-Factor_ANOVA_cholesterol.xlsx</code> from Canvas to your Downloads folder and make it available to RStudio.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Upload excel file to RStudio Cloud">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click guidance notes
+Upload excel file to RStudio Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -152,8 +156,16 @@ Click guidance notes
 <div class="callout-body-container callout-body">
 <ul>
 <li>Check that the data in the file is ‘tidy’</li>
-<li>Save it to a folder that you will use as your working directory on your OneDrive - Kingston University account.</li>
-<li>In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: <code>setwd("O:/")</code>.<br><br> Then click the ‘More’ cog icon and select ‘Go to working directory’ and find your folder - set that as your final working directory.</li>
+<li>Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (<em>NB</em> If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="upload%201-factor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Uploading a file to RStudio"><img src="upload%201-factor.png" class="img-fluid figure-img" style="width:70.0%" alt="Uploading a file to RStudio"></a></p>
+<figcaption>Uploading a file to RStudio</figcaption>
+</figure>
+</div>
+<ul>
+<li>In RStudio, locate the file and set the folder location as your working directory.</li>
 </ul>
 </div>
 </div>
@@ -1177,23 +1189,31 @@ Click to see the result of the multiple comparison
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>This example is one in which subjects are assigned to one of 3 treatment groups (Factor 1: Control, Drug 1 or Drug 2, as in the 1-Factor example). However, in this case we also want to find out if gender (Factor 2) affects the cholesterol results as well as treatment, and whether the effect of treatment depends on the gender (an interaction of the two factors)<br></p>
-<p><strong>1. Download and prepare the data</strong><br></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Click guidance notes">
+<p><strong>1. Download and prepare the data</strong><br> Download the excel file <code>2-factor_ANOVA_cholesterol.xlsx</code> from Canvas to your Downloads folder and make it available to RStudio.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Upload excel file to RStudio Cloud">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click guidance notes
+Upload excel file to RStudio Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Download the file <em>2-Factor_ANOVA_cholesterol.xlsx</em> from Canvas and save to to your working directory.</li>
-<li>Check that the data is ’tidy.</li>
-<li>In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: <code>setwd("O:/")</code>. <br> Then click the ‘More’ cog icon and select ‘Go to working directory’ and find your folder - set that as your final working directory.</li>
+<li>Check that the data in the file is ‘tidy’</li>
+<li>Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (<em>NB</em> If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="upload%202-factor.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Uploading a file to RStudio"><img src="upload%202-factor.png" class="img-fluid figure-img" style="width:70.0%" alt="Uploading a file to RStudio"></a></p>
+<figcaption>Uploading a file to RStudio</figcaption>
+</figure>
+</div>
+<ul>
+<li>In RStudio, locate the file and set the folder location as your working directory.</li>
 </ul>
 </div>
 </div>
@@ -2133,25 +2153,32 @@ Click to see the multiple comparison
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>When more than two measurements are repeatedly taken from the same subject, use a repeated measures ANOVA to identify if the mean measurements taken at the different times are significantly different.<br> Here, cholesterol was measured in 18 subjects at the start and then 4 weeks and 8 weeks after they were asked to consume a margerine that is designed to reduce cholesterol. Does cholesterol fall in the 18 people (irrespective of their starting level of cholesterol)?<br></p>
-<p><br><strong>1. Download the file <em>ANOVA_RM_cholesterol.xlsx</em> from Canvas</strong><br></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Click guidance notes">
+<p><br><strong>1. Download the file</strong> <code>ANOVA_RM_cholesterol.xlsx</code> from Canvas to your Downloads folder and make it available to RStudio.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Upload excel file to RStudio Cloud">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click guidance notes
+Upload excel file to RStudio Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-33" class="callout-33-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Download the file <code>ANOVA_RM_cholesterol.xlsx</code> from Canvas and save to to your working directory.</li>
-<li>Check the data is ‘tidy’</li>
-<li>In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: <code>setwd("O:/")</code>.<br><br></li>
+<li>Check that the data in the file is ‘tidy’</li>
+<li>Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (<em>NB</em> If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).</li>
 </ul>
-<p>Then click the ‘More’ cog icon and select ‘Go to working directory’ and find your folder - set that as your final working directory.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="upload%20RM.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Uploading a file to RStudio"><img src="upload%20RM.png" class="img-fluid figure-img" style="width:70.0%" alt="Uploading a file to RStudio"></a></p>
+<figcaption>Uploading a file to RStudio</figcaption>
+</figure>
+</div>
+<ul>
+<li>In RStudio, locate the file and set the folder location as your working directory.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -3201,25 +3228,32 @@ Click to see the effect size
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p>This uses the same data as for the 1-Factor Anova example, but in this case we also have the age of each participant. We know that cholesterol is affected by age (from previous studies), so we want to control for this variable and analyse only if drug treatment group (control, drug 1 or drug 2) influences cholesterol levels irrespective of age.</p>
-<p><br><code>1.</code> <strong>Download the data</strong><br></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Click guidance notes">
+<p><br><code>1.</code> <strong>Download the data</strong><br> Download the excel file <code>ANCOVA_cholesterol.xlsx</code> from Canvas to your Downloads folder and make it available to RStudio.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Upload excel file to RStudio Cloud">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click guidance notes
+Upload excel file to RStudio Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-47" class="callout-47-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
-<li>Download the file <em>ANCOVA_cholesterol.xlsx</em> from Canvas and save it to your working directory.</li>
-<li>Check that the data is arranged in a ‘tidy’ format</li>
-<li>In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: <code>setwd("O:/")</code>.<br><br></li>
+<li>Check that the data in the file is ‘tidy’</li>
+<li>Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (<em>NB</em> If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).</li>
 </ul>
-<p>Then click the ‘More’ cog icon and select ‘Go to working directory’ and find your folder - set that as your final working directory.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="upload%20ANCOVA.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Uploading a file to RStudio"><img src="upload%20ANCOVA.png" class="img-fluid figure-img" style="width:70.0%" alt="Uploading a file to RStudio"></a></p>
+<figcaption>Uploading a file to RStudio</figcaption>
+</figure>
+</div>
+<ul>
+<li>In RStudio, locate the file and set the folder location as your working directory.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -4523,6 +4557,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

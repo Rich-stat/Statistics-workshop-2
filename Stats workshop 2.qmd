@@ -42,6 +42,7 @@ library(ggpubr)
 library(pwr)
 library(FSA)
 ```
+*NB* If you get a message saying that a packages does not exist, you need to install it first with `install.packages("name_of_package")`
 :::
 
 <br> <br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
@@ -51,12 +52,15 @@ library(FSA)
 
 This example is based on an experiment to test if drugs can reduce cholesterol levels. Subjects were randomly divided into 3 groups: One group is given no drug (control group), the second is given Drug 1 and the third group is given Drug 2.
 
-<br> **1. Download the Excel file *1-Factor_ANOVA_cholesterol.xlsx* from Canvas**
+<br> **1. Download the Excel file** `1-Factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
-::: {.callout-note collapse="true" title="Click guidance notes" icon="true"}
+::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 -   Check that the data in the file is 'tidy'
--   Save it to a folder that you will use as your working directory on your OneDrive - Kingston University account.
--   In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: `setwd("O:/")`.<br><br> Then click the 'More' cog icon and select 'Go to working directory' and find your folder - set that as your final working directory.
+-   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
+
+![Uploading a file to RStudio](upload 1-factor.png){.lightbox width="70%"}
+
+-   In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br> **2. Import the file to RStudio and store it as a dataframe called *anova_1_factor*.**<br> The `head()` function shows us the first 6 rows:<br>
@@ -530,11 +534,15 @@ Use the `p.adj` value to decide if a comparison is statistically significantly d
 This example is one in which subjects are assigned to one of 3 treatment groups (Factor 1: Control, Drug 1 or Drug 2, as in the 1-Factor example). However, in this case we also want to find out if gender (Factor 2) affects the cholesterol results as well as treatment, and whether the effect of treatment depends on the gender (an interaction of the two factors)<br>
 
 **1. Download and prepare the data**<br>
+Download the excel file `2-factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
-::: {.callout-note collapse="true" title="Click guidance notes" icon="true"}
--   Download the file *2-Factor_ANOVA_cholesterol.xlsx* from Canvas and save to to your working directory.
--   Check that the data is 'tidy.
--   In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: `setwd("O:/")`. <br> Then click the 'More' cog icon and select 'Go to working directory' and find your folder - set that as your final working directory.
+::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
+-   Check that the data in the file is 'tidy'
+-   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
+
+![Uploading a file to RStudio](upload 2-factor.png){.lightbox width="70%"}
+
+-   In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br>**2. Now import the data**<br>
@@ -853,14 +861,15 @@ aov_2_factor |>
 
 When more than two measurements are repeatedly taken from the same subject, use a repeated measures ANOVA to identify if the mean measurements taken at the different times are significantly different.<br> Here, cholesterol was measured in 18 subjects at the start and then 4 weeks and 8 weeks after they were asked to consume a margerine that is designed to reduce cholesterol. Does cholesterol fall in the 18 people (irrespective of their starting level of cholesterol)?<br>
 
-<br>**1. Download the file *ANOVA_RM_cholesterol.xlsx* from Canvas**<br>
+<br>**1. Download the file** `ANOVA_RM_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
-::: {.callout-note collapse="true" title="Click guidance notes" icon="true"}
--   Download the file `ANOVA_RM_cholesterol.xlsx` from Canvas and save to to your working directory.
--   Check the data is 'tidy'
--   In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: `setwd("O:/")`.<br><br>
+::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
+-   Check that the data in the file is 'tidy'
+-   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
-Then click the 'More' cog icon and select 'Go to working directory' and find your folder - set that as your final working directory.
+![Uploading a file to RStudio](upload RM.png){.lightbox width="70%"}
+
+-   In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br>
@@ -871,8 +880,7 @@ Then click the 'More' cog icon and select 'Go to working directory' and find you
 chol_RM <- import("ANOVA_RM_Cholesterol.xlsx")
 ```
 
-<br> View the whole dataframe carefully. Note the arrangement of the data: the 'Before', 'After.4.weeks' and 'After.8.weeks' columns have been placed in 1 column headed 'Time'.   Similarly, all of the Cholesterol values are in 1 column.<br>
-The ID of each person has also been placed in the first column
+<br> View the whole dataframe carefully. Note the arrangement of the data: the 'Before', 'After.4.weeks' and 'After.8.weeks' columns have been placed in 1 column headed 'Time'. Similarly, all of the Cholesterol values are in 1 column.<br> The ID of each person has also been placed in the first column
 
 ```{r}
 #| label: head.rm
@@ -883,6 +891,7 @@ chol_RM
 
 ::: {.callout-note collapse="true" title="Click to see the whole dataframe" icon="false"}
 The data is tidy: each row represents one observation and each column is a different variable:
+
 ```{r}
 #| label: head.rm1
 #| echo: false
@@ -1243,13 +1252,15 @@ Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduc
 This uses the same data as for the 1-Factor Anova example, but in this case we also have the age of each participant. We know that cholesterol is affected by age (from previous studies), so we want to control for this variable and analyse only if drug treatment group (control, drug 1 or drug 2) influences cholesterol levels irrespective of age.
 
 <br>`1.` **Download the data**<br>
+Download the excel file `ANCOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
-::: {.callout-note collapse="true" title="Click guidance notes" icon="true"}
--   Download the file *ANCOVA_cholesterol.xlsx* from Canvas and save it to your working directory.
--   Check that the data is arranged in a 'tidy' format
--   In RStudio, locate the file and set the location as your working directory. <br> If you are using a University computer you can locate OneDrive by typing: `setwd("O:/")`.<br><br>
+::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
+-   Check that the data in the file is 'tidy'
+-   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
-Then click the 'More' cog icon and select 'Go to working directory' and find your folder - set that as your final working directory.
+![Uploading a file to RStudio](upload ANCOVA.png){.lightbox width="70%"}
+
+-   In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br>
