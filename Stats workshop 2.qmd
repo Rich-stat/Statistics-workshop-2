@@ -42,7 +42,8 @@ library(ggpubr)
 library(pwr)
 library(FSA)
 ```
-*NB* If you get a message saying that a packages does not exist, you need to install it first with `install.packages("name_of_package")`
+
+*NB* If you get a message saying that a package does not exist, you need to install it first with `install.packages("name_of_package")`
 :::
 
 <br> <br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
@@ -58,7 +59,7 @@ This example is based on an experiment to test if drugs can reduce cholesterol l
 -   Check that the data in the file is 'tidy'
 -   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
-![Uploading a file to RStudio](upload 1-factor.png){.lightbox width="70%"}
+![Uploading a file to RStudio](upload%201-factor.png){.lightbox width="70%"}
 
 -   In RStudio, locate the file and set the folder location as your working directory.
 :::
@@ -266,6 +267,17 @@ anova_mean_table |>
        y = "Cholesterol (mg/dL)")
 ```
 :::
+
+
+::: {.callout-note collapse="true" title="NOTE: If you want to specify the order of the Drugs on the x-axis, click here" icon="false"}
+By default, the x-values are plotted in alphabetical and numerical order. Use the `fct_relevel()` function to specify the order of the x-values if you want to change this. <br>In these plots *Group* is the main variable placed on the x-axis.<br><br>
+a) for this boxplot, use:<br>
+`anova_1_factor$Group <- fct_relevel(anova_1_factor$Group, "Control", "Drug_1", "Drug_2")`<br>
+<br>
+b) for this barplot, use:<br>
+`anova_mean_table$Group <- fct_relevel(anova_mean_table$Group, "Control", "Drug_1", "Drug_2")`
+:::
+
 
 <br> <br> **4. ASSUMPTIONS**<br> **4.1 Test if the data in the 3 groups is normally distributed**
 
@@ -533,14 +545,13 @@ Use the `p.adj` value to decide if a comparison is statistically significantly d
 
 This example is one in which subjects are assigned to one of 3 treatment groups (Factor 1: Control, Drug 1 or Drug 2, as in the 1-Factor example). However, in this case we also want to find out if gender (Factor 2) affects the cholesterol results as well as treatment, and whether the effect of treatment depends on the gender (an interaction of the two factors)<br>
 
-**1. Download and prepare the data**<br>
-Download the excel file `2-factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
+**1. Download and prepare the data**<br> Download the excel file `2-factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 -   Check that the data in the file is 'tidy'
 -   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
-![Uploading a file to RStudio](upload 2-factor.png){.lightbox width="70%"}
+![Uploading a file to RStudio](upload%202-factor.png){.lightbox width="70%"}
 
 -   In RStudio, locate the file and set the folder location as your working directory.
 :::
@@ -761,7 +772,17 @@ anova_table_2 |>
 ```
 :::
 
-<br><br> <br> **4. ASSUMPTIONS**<br> `4.1` **Examine if the data is normally distributed:**
+
+::: {.callout-note collapse="true" title="NOTE: If you want to specify the order of the treatment on the x-axis, click here" icon="false"}
+By default, the x-values are plotted in alphabetical and numerical order. Use the `fct_relevel()` function to specify the order of the x-values if you want to change this. <br>In these plots *Group* is the main variable placed on the x-axis.<br><br>
+a) for this boxplot, use:<br>
+`aov_2_factor$Group <- fct_relevel(aov_2_factor$Group, "Control", "Drug_1", "Drug_2")`<br>
+<br>
+b) for this barplot, use:<br>
+`anova_table_2$Group <- fct_relevel(anova_table_2$Group, "Control", "Drug_1", "Drug_2")`
+:::
+
+<br> <br> **4. ASSUMPTIONS**<br> `4.1` **Examine if the data is normally distributed:**
 
 ```{r}
 #| label: aov_2fctr
@@ -867,7 +888,7 @@ When more than two measurements are repeatedly taken from the same subject, use 
 -   Check that the data in the file is 'tidy'
 -   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
-![Uploading a file to RStudio](upload RM.png){.lightbox width="70%"}
+![Uploading a file to RStudio](upload%20RM.png){.lightbox width="70%"}
 
 -   In RStudio, locate the file and set the folder location as your working directory.
 :::
@@ -1251,14 +1272,13 @@ Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduc
 
 This uses the same data as for the 1-Factor Anova example, but in this case we also have the age of each participant. We know that cholesterol is affected by age (from previous studies), so we want to control for this variable and analyse only if drug treatment group (control, drug 1 or drug 2) influences cholesterol levels irrespective of age.
 
-<br>`1.` **Download the data**<br>
-Download the excel file `ANCOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
+<br>`1.` **Download the data**<br> Download the excel file `ANCOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 -   Check that the data in the file is 'tidy'
 -   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
-![Uploading a file to RStudio](upload ANCOVA.png){.lightbox width="70%"}
+![Uploading a file to RStudio](upload%20ANCOVA.png){.lightbox width="70%"}
 
 -   In RStudio, locate the file and set the folder location as your working directory.
 :::
