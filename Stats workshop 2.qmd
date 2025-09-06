@@ -48,7 +48,7 @@ library(FSA)
 
 <br> <br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: panel-tabset
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: panel-tabset
 ### **1-FACTOR ANOVA**
 
 This example is based on an experiment to test if drugs can reduce cholesterol levels. Subjects were randomly divided into 3 groups: One group is given no drug (control group), the second is given Drug 1 and the third group is given Drug 2.
@@ -74,7 +74,7 @@ anova_1_factor <- import('1-Factor_ANOVA_cholesterol.xlsx') #<1>
 head(anova_1_factor)  #<2>
 ```
 
-1.  Imports the excel file to a dataframe object callsed 'mendel'
+1.  Imports the excel file to a dataframe object called 'anova_1_factor'
 2.  Shows the first 6 rows of the dataframe
 
 ::: {.callout-note collapse="true" title="Click to see the first 6 rows of the dataframe" icon="false"}
@@ -268,16 +268,9 @@ anova_mean_table |>
 ```
 :::
 
-
 ::: {.callout-note collapse="true" title="NOTE: If you want to specify the order of the Drugs on the x-axis, click here" icon="false"}
-By default, the x-values are plotted in alphabetical and numerical order. Use the `fct_relevel()` function to specify the order of the x-values if you want to change this. <br>In these plots *Group* is the main variable placed on the x-axis.<br><br>
-a) for this boxplot, use:<br>
-`anova_1_factor$Group <- fct_relevel(anova_1_factor$Group, "Control", "Drug_1", "Drug_2")`<br>
-<br>
-b) for this barplot, use:<br>
-`anova_mean_table$Group <- fct_relevel(anova_mean_table$Group, "Control", "Drug_1", "Drug_2")`
+By default, the x-values are plotted in alphabetical and numerical order. Use the `fct_relevel()` function to specify the order of the x-values if you want to change this. <br>In these plots *Group* is the main variable placed on the x-axis.<br><br> a) for this boxplot, use:<br> `anova_1_factor$Group <- fct_relevel(anova_1_factor$Group, "Control", "Drug_1", "Drug_2")`<br> <br> b) for this barplot, use:<br> `anova_mean_table$Group <- fct_relevel(anova_mean_table$Group, "Control", "Drug_1", "Drug_2")`
 :::
-
 
 <br> <br> **4. ASSUMPTIONS**<br> **4.1 Test if the data in the 3 groups is normally distributed**
 
@@ -772,14 +765,8 @@ anova_table_2 |>
 ```
 :::
 
-
 ::: {.callout-note collapse="true" title="NOTE: If you want to specify the order of the treatment on the x-axis, click here" icon="false"}
-By default, the x-values are plotted in alphabetical and numerical order. Use the `fct_relevel()` function to specify the order of the x-values if you want to change this. <br>In these plots *Group* is the main variable placed on the x-axis.<br><br>
-a) for this boxplot, use:<br>
-`aov_2_factor$Group <- fct_relevel(aov_2_factor$Group, "Control", "Drug_1", "Drug_2")`<br>
-<br>
-b) for this barplot, use:<br>
-`anova_table_2$Group <- fct_relevel(anova_table_2$Group, "Control", "Drug_1", "Drug_2")`
+By default, the x-values are plotted in alphabetical and numerical order. Use the `fct_relevel()` function to specify the order of the x-values if you want to change this. <br>In these plots *Group* is the main variable placed on the x-axis.<br><br> a) for this boxplot, use:<br> `aov_2_factor$Group <- fct_relevel(aov_2_factor$Group, "Control", "Drug_1", "Drug_2")`<br> <br> b) for this barplot, use:<br> `anova_table_2$Group <- fct_relevel(anova_table_2$Group, "Control", "Drug_1", "Drug_2")`
 :::
 
 <br> <br> **4. ASSUMPTIONS**<br> `4.1` **Examine if the data is normally distributed:**
@@ -1677,4 +1664,4 @@ adj.means |>
        y = "Cholesterol (mg/dL)")
 ```
 :::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
