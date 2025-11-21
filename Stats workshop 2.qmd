@@ -245,8 +245,8 @@ anova_mean_table |>
 #| eval: false
 anova_mean_table |>   #<1>
   ggplot() +
-  geom_bar( aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
-  geom_errorbar( aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +   #<2>
+  geom_bar(aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
+  geom_errorbar(aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +   #<2>
   labs(title = "Mean Cholesterol Values in the 3 Groups", #<3>
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)")
@@ -264,7 +264,7 @@ anova_mean_table |>   #<1>
 anova_mean_table |>
   ggplot() +
   geom_bar( aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
-  geom_errorbar( aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +
+  geom_errorbar(aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +
   labs(title = "Mean Cholesterol Values in the 3 Groups",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)")
@@ -1104,7 +1104,7 @@ anova_rm_table |>
   labs(title = "Bar chart of RM ANOVA Cholesterol data",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)") +
-  scale_x_discrete(labels=c("Before"="At start", "After.4.weeks"="4 Weeks", "After.8.weeks"="8 Weeks"))  #<4>
+  scale_x_discrete(labels=c("Before"="At start", "After.4.weeks"="4 Weeks", "After.8.weeks"="8 Weeks")) 
 ```
 :::
 
@@ -1257,7 +1257,7 @@ chol_RM |>
   wilcox_test(Cholesterol ~ Time, paired = TRUE, p.adjust.method = "bonferroni")
 ```
 
-::: {.callout-note collapse="true" title="Click to see the effect size" icon="false"}
+::: {.callout-note collapse="true" title="Click to see the multiple comparisons" icon="false"}
 ```{r}
 #| label: wilcox_FT1
 #| echo: false
