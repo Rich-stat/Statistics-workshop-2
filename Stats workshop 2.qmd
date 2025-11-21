@@ -113,7 +113,7 @@ summarise_all(class) |>
 This shows that the Group variable has been imported as character data (*ie* text). The groups are categories, and so we wnat to change them to a factor variable.
 :::
 
-<br>We want to change the Group column to be a factor rather than character data:
+<br>We want to change the Group column to be a factor rather than character data because it contains categories (*ie* Control, Drug 1 and Drug 2 categories):
 
 ```{r}
 #| label: factor
@@ -178,8 +178,8 @@ describeBy(Cholesterol ~ Group, data = anova_1_factor)
 anova_1_factor |>
   ggplot(aes(x= Group, y= Cholesterol)) +  #<1>
   geom_boxplot(fill = 'lightblue') +  #<2>
-  stat_summary(fun=mean, geom="point", shape=15, size = 2, color="black", fill="black") +
-  labs(title = "Boxplot of Cholesterol 1-Factor ANOVA Data",
+  stat_summary(fun=mean, geom="point", shape=15, size = 2, color="black", fill="black") +  #<3>
+  labs(title = "Boxplot of Cholesterol 1-Factor ANOVA Data",  #<4>
        subtitle = "(square = mean, thick line = median)",
        x = "Group",
        y = "Cholesterol (mg/dL)")
@@ -187,6 +187,8 @@ anova_1_factor |>
 
 1.  Sends the anova_1_factor dataframe to the ggplot() function, with the Group variable on the x-axis and Cholesterol on the y-axis
 2.  Creates a boxplot with blue fill, a black square as the mean value, and the title and axes labelled
+3. This line adds a black square point for the mean values
+4. The labs() function allows you to add a title, sub-title and x and y axis labels
 
 ::: {.callout-note collapse="true" title="Click to see the boxplot" icon="false"}
 ```{r}
@@ -214,10 +216,12 @@ anova_mean_table <- anova_1_factor |>
   group_by(Group) |>   #<1>
   summarise(mean_chol = mean(Cholesterol),
             SD_chol = sd(Cholesterol))  #<2>
+anova_mean_table  #<3>
 ```
 
 1.  groups the data in the dataframe by the Group variable
 2.  Creates 2 new columns: mean_chol with the mean Cholesterol value and SD_chol with the SD
+3.  This line calls the table so that we can see its contents
 
 ::: {.callout-note collapse="true" title="Click to see the table with the mean and SD values" icon="false"}
 ```{r}
@@ -233,7 +237,7 @@ anova_mean_table |>
 ```
 :::
 
-<br> Then, use those means and SDs to create a bar plot:
+<br> Then, use those means and SDs in the `anova_mean_table` to create a bar plot:
 
 ```{r}
 #| label: barAN1
@@ -242,15 +246,15 @@ anova_mean_table |>
 anova_mean_table |>   #<1>
   ggplot() +
   geom_bar( aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
-  geom_errorbar( aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.2, colour="black",    #<2>
-                 alpha=0.75, linewidth=0.7) +
-  labs(title = "Mean Cholesterol Values in the 3 Groups",
+  geom_errorbar( aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +   #<2>
+  labs(title = "Mean Cholesterol Values in the 3 Groups", #<3>
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)")
 ```
 
-1.  Sends the new `anova_mean_table` contens to the ggplot() function to plot a bar chart with Group on the x-axis and the mean cholesterol values on the y-axis
-2.  This line creates the SD error bars on the bar chart: mean cholesterol +/- SD
+1.  Sends the new `anova_mean_table` contents to the ggplot() function to plot a bar chart with Group on the x-axis and the mean cholesterol values on the y-axis
+2.  This line creates the SD error bars on the bar chart: mean cholesterol +/- SD.  `width` sets the width of the caps at each end of the vertical line, `linewidth` sets the thickness of the error bar lines
+3.  The labs() function allows you to add a title, sub-title and x and y axis labels
 
 ::: {.callout-note collapse="true" title="Click to see the barplot" icon="false"}
 ```{r}
@@ -260,8 +264,8 @@ anova_mean_table |>   #<1>
 anova_mean_table |>
   ggplot() +
   geom_bar( aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
-  geom_errorbar( aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.2, colour="black",    #<2>
-                 alpha=0.75, linewidth=0.7) +
+  geom_errorbar( aes(x=Group, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black",    #<2>
+                 alpha=0.75, linewidth=0.5) +
   labs(title = "Mean Cholesterol Values in the 3 Groups",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)")
@@ -319,7 +323,7 @@ anova_1_factor |>
 ```
 :::
 
-In this case, the data in the 3 groups is normally distributed (P\>0.05) and the variances are homogeneous (P\>0.05). <br> <br> <br> <br>**Question: Are the mean values of the 3 groups statistically significantly different (*ie*, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people**<br>
+In this case, the data in the 3 groups are normally distributed (P\>0.05) and the variances are homogeneous (P\>0.05). <br> <br> <br> <br>**Question: Are the mean values of the 3 groups statistically significantly different (*ie*, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people**<br>
 
 <br><br>
 
@@ -347,9 +351,11 @@ anova_1_factor |>
   kable(align = 'l')
 ```
 
-*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.
+*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br><br>
+Here, P < 8x10^-7^, *ie* much less than 0.05, and so there is a statistically sigificant difference between at least 2 of the groups.
 :::
 
+To find out which group differs statistically significantly from each other, use a multiple comparison test.
 <br><br> **Tukey multiple comparison:**
 
 ```{r}
@@ -419,7 +425,8 @@ anova_1_factor |>
   kable(align = 'l')
 ```
 
-*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.
+*NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br><br>
+Here, P < 8x10^-7^, *ie* much less than 0.05, and so there is a statistically sigificant difference between at least 2 of the groups.
 :::
 
 <br><br> **Games-Howell multiple comparison test:**
@@ -441,6 +448,7 @@ anova_1_factor |>
   games_howell_test(Cholesterol ~ Group, conf.level = 0.95, detailed = FALSE) |>
   kable(align = 'l')
 ```
+All comparisons have a P-values less than 0.05, and so each group is statistically significantly different to every other
 :::
 
 <br><br> **Power** (must be balanced ANOVA with same numbers in each group):
@@ -737,16 +745,16 @@ dodge <- position_dodge(width=0.9)  #<1>
 anova_table_2 |>
   ggplot(aes(x = Group, y = mean_chol, fill = Gender)) +  #<2>
   geom_col(position = dodge, colour = "black", alpha=1) +  #<3>
-  geom_errorbar(aes(ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), position = dodge, width= 0.3, colour="black", alpha=0.75, linewidth=0.5) +  #<4>
+  geom_errorbar(aes(ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), position = dodge, width= 0.1, colour="black", alpha=0.75, linewidth=0.5) +  #<4>
   labs(title = "Bar chart of 2-Factor ANOVA Cholesterol data",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)")
 ```
 
-1.  Manual adjustment of dodge width so error bars are in the centre of each bar
+1.  Manual adjustment of dodge width so that males and females are clustered next to each for each group
 2.  Sends the new table to the ggplot() function with Group on the x-axis, mean values on the y-axis and bars coloured by gender
 3.  Creates a clustered bar chart with male and female groups next to each other
-4.  Creates error bars of SD (mean +/- SD)
+4.  Creates error bars of SD (mean +/- SD), width of the caps and the linewidths of the error bars.
 
 ::: {.callout-note collapse="true" title="Click to see the bar chart" icon="false"}
 ```{r}
@@ -756,9 +764,9 @@ anova_table_2 |>
 dodge <- position_dodge(width=0.9)  #<1> 
 
 anova_table_2 |>
-  ggplot(aes(x = Group, y = mean_chol, fill = Gender)) +  #<2>
-  geom_col(position = dodge, colour = "black", alpha=1) +  #<3>
-  geom_errorbar(aes(ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), position = dodge, width= 0.3, colour="black", alpha=0.75, linewidth=0.5) +  #<4>
+  ggplot(aes(x = Group, y = mean_chol, fill = Gender)) +
+  geom_col(position = dodge, colour = "black", alpha=1) + 
+  geom_errorbar(aes(ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), position = dodge, width= 0.1, colour="black", alpha=0.75, linewidth=0.5) + 
   labs(title = "Bar chart of 2-Factor ANOVA Cholesterol data",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)")
@@ -793,6 +801,7 @@ aov_2_factor |>
   shapiro_test(Cholesterol) |>
   kable(align = 'l')
 ```
+The P-values for all groups are >0.05, and so the data are normally distributed.
 :::
 
 <br><br> **4.2 Test if the variances in the groups are equal:**
@@ -814,6 +823,7 @@ aov_2_factor |>
   levene_test(Cholesterol ~ Group*Gender) |>
   kable(align = 'l')
 ```
+P=0.64, and so the variances of the data in the groups are not significantly different.
 :::
 
 <br><br> **5.ANOVA**<br> `5.1` **The 2-factor anova:**
@@ -837,7 +847,7 @@ aov_2_factor |>
   anova_test(Cholesterol ~ Group + Gender + Group*Gender, effect.size = "pes")
 ```
 
-*NB~1~* pes = partial eta square effect sizes:<br>eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br><br> *NB~2~* Here, only Group has a statistically significant effect on Cholesterol. Both gender and the interaction term have P-values greater than 0.05 (0.722 and 0.435, respectively). So we could just do a 1-factor anova with Group as the only factor.<br><br>
+*NB~1~* pes = partial eta square effect sizes:<br>eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br><br> *NB~2~* Here, only Group (*ie* the drug treatment) has a statistically significant effect on Cholesterol. Both gender and the interaction term have P-values greater than 0.05 (0.722 and 0.435, respectively). So gender does not have an effect overall, and the effect of a drug does not depend on the gender of the person receiving it (the Group:Gender interaction term).<br><br>
 :::
 
 <br><br><br> **5.2 Multiple comparison test:**<br> Compares every group with every other group.<br><br> *NB* If homogeneity of variance is not true, use the Games_Howell multiple comparison test - see 1-FACTOR ANOVA tab, section 5.2
@@ -997,30 +1007,33 @@ chol_RM$Time <- fct_relevel(chol_RM$Time, "Before", "After.4.weeks", "After.8.we
 
 chol_RM |>
   ggplot(aes(x=Time, y=Cholesterol)) +  #<2>
-  geom_boxplot() +    #<3>
-  stat_summary(fun=mean, geom="point", shape=15, size = 3, color="steelblue", fill="black") +
-  labs(title = "Boxplot of Cholesterol RM ANOVA Data",
+  geom_boxplot(fill="lightblue") +    #<3>
+  stat_summary(fun=mean, geom="point", shape=15, size = 3, color="black") + #<4>
+  labs(title = "Boxplot of Cholesterol RM ANOVA Data",  #<5>
        subtitle = "(square = mean, thick line = median)",
        x = "Duration of consumption of margarine",
        y = "Cholesterol (mg/dL)") +
-  scale_x_discrete(labels=c("Before"="At start", "After.4.weeks"="4 Weeks", "After.8.weeks"="8 Weeks"))
+  scale_x_discrete(labels=c("Before"="At start", "After.4.weeks"="4 Weeks", "After.8.weeks"="8 Weeks"))  #<6>
 ```
 
 1.  This selects the *Time* column in the *chol_RM* dataframe, and ensures that the Time categories appear in the graph in the order specified here (default is to display them in alphabetical order).
 2.  Sends the dataframe to ggplot() and puts Time on the x-axis and Cholesterol on the y-axis
 3.  Creates a boxplot
+4.  Creates a black square to represent the mean value
+5.  Type your title, subtitle and axis titles here
+6.  Renames the categories in the Time column to appear as labels on the x-axis
 
 ::: {.callout-note collapse="true" title="Click to see the boxplot" icon="false"}
 ```{r}
 #| label: boxRM1
 #| echo: false
 #| eval: true
-chol_RM$Time <- fct_relevel(chol_RM$Time, "Before", "After.4.weeks", "After.8.weeks") #<1>
+chol_RM$Time <- fct_relevel(chol_RM$Time, "Before", "After.4.weeks", "After.8.weeks")
 
 chol_RM |>
-  ggplot(aes(x=Time, y=Cholesterol)) +  #<2>
-  geom_boxplot() +    #<3>
-  stat_summary(fun=mean, geom="point", shape=15, size = 3, color="steelblue", fill="black") +
+  ggplot(aes(x=Time, y=Cholesterol)) +
+  geom_boxplot(fill="lightblue") +  
+  stat_summary(fun=mean, geom="point", shape=15, size = 3, color="black") +
   labs(title = "Boxplot of Cholesterol RM ANOVA Data",
        subtitle = "(square = mean, thick line = median)",
        x = "Duration of consumption of margarine",
@@ -1068,7 +1081,7 @@ anova_rm_table |>
 anova_rm_table |>
   ggplot() +   #<1>
   geom_bar(aes(x=Time, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +  #<2>
-  geom_errorbar(aes(x=Time, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.2, colour="black", alpha=0.75, linewidth=0.7) +  #<3>
+  geom_errorbar(aes(x=Time, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +  #<3>
   labs(title = "Bar chart of RM ANOVA Cholesterol data",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)") +
@@ -1086,9 +1099,9 @@ anova_rm_table |>
 #| echo: false
 #| eval: true
 anova_rm_table |>
-  ggplot() +   #<1>
-  geom_bar(aes(x=Time, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +  #<2>
-  geom_errorbar(aes(x=Time, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.2, colour="black", alpha=0.75, linewidth=0.7) +  #<3>
+  ggplot() +  
+  geom_bar(aes(x=Time, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
+  geom_errorbar(aes(x=Time, ymin=mean_chol-SD_chol, ymax=mean_chol+SD_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) 
   labs(title = "Bar chart of RM ANOVA Cholesterol data",
        subtitle = "Bars = standard deviation",
        y = "Cholesterol (mg/dL)") +
@@ -1096,7 +1109,7 @@ anova_rm_table |>
 ```
 :::
 
-<br> <br> **4. ASSUMPTIONS**<br> **Test if the data in the 3 groups is normally distributed**
+<br> <br> **4. ASSUMPTIONS**<br> **Test if the data in the 3 groups are normally distributed**
 
 ```{r}
 #| label: anovarmnorm
@@ -1211,6 +1224,7 @@ chol_RM |>
   friedman_test(Cholesterol ~ Time | ID) |>
   kable(align = 'l')
 ```
+P=3x10^-7^, much less than 0.05, and so there is a statistically signticant difference
 :::
 
 <br><br> `5.2b` **Effect size**<br> Uses the Kendall W effect size measure. The output interprets the value for you.
@@ -1252,7 +1266,7 @@ chol_RM |>
   wilcox_test(Cholesterol ~ Time, paired = TRUE, p.adjust.method = "bonferroni")
 ```
 
-Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduce the chance of a Type 1 error.
+Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduce the chance of a Type 1 error.<br><br>Here, all groups are statistically signnificantly different to every other group
 :::
 
 ### **ANCOVA**
@@ -1444,9 +1458,8 @@ ancova_mean_table |>
 #| eval: false
 ancova_mean_table |>
   ggplot() +
-  geom_bar( aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +  #<1>
-  geom_errorbar( aes(x=Group, ymin=mean_chol-SE_chol, ymax=mean_chol+SE_chol), width=0.2, colour="black", 
-                 alpha=0.75, linewidth=0.7) +  #<2>
+  geom_bar(aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +  #<1>
+  geom_errorbar(aes(x=Group, ymin=mean_chol-SE_chol, ymax=mean_chol+SE_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +  #<2>
   labs(title = "Bar chart of Cholesterol data",
        subtitle = "Bars = standard error",
        y = "Cholesterol (mg/dL)")
@@ -1462,9 +1475,8 @@ ancova_mean_table |>
 #| eval: true
 ancova_mean_table |>
   ggplot() +
-  geom_bar( aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
-  geom_errorbar( aes(x=Group, ymin=mean_chol-SE_chol, ymax=mean_chol+SE_chol), width=0.2, colour="black", 
-                 alpha=0.75, linewidth=0.7) +
+  geom_bar(aes(x=Group, y=mean_chol), stat="identity", fill="lightblue", colour = "black", alpha=1) +
+  geom_errorbar(aes(x=Group, ymin=mean_chol-SE_chol, ymax=mean_chol+SE_chol), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +
   labs(title = "Bar chart of Cholesterol data",
        subtitle = "Bars = standard error",
        y = "Cholesterol (mg/dL)")
@@ -1520,7 +1532,7 @@ ancova_chol |>
   kable(align = 'l')
 ```
 
-Here, the Group:Age interaction term P = 0.659.<br><br> *NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.
+Here, the Group:Age interaction term P = 0.659, and so the slopes of the 3 lines are not significantly different.<br><br> *NB* 'pes' = partial eta squared effect size:<br> eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.
 :::
 
 <br><br> `C`. Homogeneity of variance for outcomes (cholesterol levels) for each group <br>(P should be \>0.05):
@@ -1638,9 +1650,8 @@ Compare the bar chart at the start of this section with the one below which show
 #| eval: false
 adj.means |> #<1>
   ggplot() + 
-  geom_bar(aes(x=Group, y=emmean), 
-           stat="identity", fill="steelblue", colour = "black", alpha=1) +
-  geom_errorbar(aes(x=Group, ymin=emmean-se, ymax=emmean+se), width=0.2,   colour="black", alpha=0.75, linewidth=0.7) +   #<2>
+  geom_bar(aes(x=Group, y=emmean), stat="identity", fill="steelblue", colour = "black", alpha=1) +
+  geom_errorbar(aes(x=Group, ymin=emmean-se, ymax=emmean+se), width=0.1, colour="black", alpha=0.75, linewidth=0.5) +   #<2>
   labs(title = "Bar chart of adjusted means for ANCOVA Cholesterol data", 
        subtitle = "Bars = standard error", 
        y = "Cholesterol (mg/dL)")
@@ -1656,9 +1667,8 @@ adj.means |> #<1>
 #| eval: true
 adj.means |> 
   ggplot() + 
-  geom_bar(aes(x=Group, y=emmean), 
-           stat="identity", fill="steelblue", colour = "black", alpha=1) +
-  geom_errorbar(aes(x=Group, ymin=emmean-se, ymax=emmean+se), width=0.2, colour="black", alpha=0.75, linewidth=0.7) + 
+  geom_bar(aes(x=Group, y=emmean), stat="identity", fill="steelblue", colour = "black", alpha=1) +
+  geom_errorbar(aes(x=Group, ymin=emmean-se, ymax=emmean+se), width=0.1, colour="black", alpha=0.75, linewidth=0.5) + 
   labs(title = "Bar chart of adjusted means for ANCOVA Cholesterol data", 
        subtitle = "Bars = standard error", 
        y = "Cholesterol (mg/dL)")

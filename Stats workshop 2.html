@@ -280,7 +280,7 @@ Click to see the variable data types
 </div>
 </div>
 </div>
-<p><br>We want to change the Group column to be a factor rather than character data:</p>
+<p><br>We want to change the Group column to be a factor rather than character data because it contains categories (<em>ie</em> Control, Drug 1 and Drug 2 categories):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a>anova_1_factor <span class="ot">&lt;-</span> anova_1_factor <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="fu">as.factor</span>(Group))</span>
@@ -393,8 +393,8 @@ Cholesterol    -1.25 3.79</code></pre>
 <div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a>anova_1_factor <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> Group, <span class="at">y=</span> Cholesterol)) <span class="sc">+</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">'lightblue'</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color=</span><span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Cholesterol 1-Factor ANOVA Data"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3">3</button><span id="annotated-cell-7-4" class="code-annotation-target"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">color=</span><span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4">4</button><span id="annotated-cell-7-5" class="code-annotation-target"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Cholesterol 1-Factor ANOVA Data"</span>,</span>
 <span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"(square = mean, thick line = median)"</span>,</span>
 <span id="annotated-cell-7-7"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Group"</span>,</span>
 <span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -407,6 +407,14 @@ Cholesterol    -1.25 3.79</code></pre>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
 <span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">Creates a boxplot with blue fill, a black square as the mean value, and the title and axes labelled</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="4" data-code-annotation="3">This line adds a black square point for the mean values</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="5" data-code-annotation="4">The labs() function allows you to add a title, sub-title and x and y axis labels</span>
 </dd>
 </dl>
 </div>
@@ -440,7 +448,8 @@ Click to see the boxplot
 <div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a>anova_mean_table <span class="ot">&lt;-</span> anova_1_factor <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2">2</button><span id="annotated-cell-8-4" class="code-annotation-target"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD_chol =</span> <span class="fu">sd</span>(Cholesterol))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2">2</button><span id="annotated-cell-8-4" class="code-annotation-target"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD_chol =</span> <span class="fu">sd</span>(Cholesterol))</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3">3</button><span id="annotated-cell-8-5" class="code-annotation-target"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a>anova_mean_table</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
@@ -450,6 +459,10 @@ Click to see the boxplot
 <dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
 <span data-code-cell="annotated-cell-8" data-code-lines="4" data-code-annotation="2">Creates 2 new columns: mean_chol with the mean Cholesterol value and SD_chol with the SD</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="5" data-code-annotation="3">This line calls the table so that we can see its contents</span>
 </dd>
 </dl>
 </div>
@@ -499,25 +512,28 @@ Click to see the table with the mean and SD values
 </div>
 </div>
 </div>
-<p><br> Then, use those means and SDs to create a bar plot:</p>
+<p><br> Then, use those means and SDs in the <code>anova_mean_table</code> to create a bar plot:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-1" class="code-annotation-target"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a>anova_mean_table <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>( <span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-4" class="code-annotation-target"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>( <span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">width=</span><span class="fl">0.2</span>, <span class="at">colour=</span><span class="st">"black"</span>,</span>
-<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean Cholesterol Values in the 3 Groups"</span>,</span>
-<span id="annotated-cell-9-7"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard deviation"</span>,</span>
-<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-4" class="code-annotation-target"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>( <span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3">3</button><span id="annotated-cell-9-5" class="code-annotation-target"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean Cholesterol Values in the 3 Groups"</span>,</span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard deviation"</span>,</span>
+<span id="annotated-cell-9-7"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="1" data-code-annotation="1">Sends the new <code>anova_mean_table</code> contens to the ggplot() function to plot a bar chart with Group on the x-axis and the mean cholesterol values on the y-axis</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="1" data-code-annotation="1">Sends the new <code>anova_mean_table</code> contents to the ggplot() function to plot a bar chart with Group on the x-axis and the mean cholesterol values on the y-axis</span>
 </dd>
 <dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="4" data-code-annotation="2">This line creates the SD error bars on the bar chart: mean cholesterol +/- SD</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="4" data-code-annotation="2">This line creates the SD error bars on the bar chart: mean cholesterol +/- SD. <code>width</code> sets the width of the caps at each end of the vertical line, <code>linewidth</code> sets the thickness of the error bar lines</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="5" data-code-annotation="3">The labs() function allows you to add a title, sub-title and x and y axis labels</span>
 </dd>
 </dl>
 </div>
@@ -671,7 +687,7 @@ Click to see the Levene’s test output
 </div>
 </div>
 </div>
-<p>In this case, the data in the 3 groups is normally distributed (P&gt;0.05) and the variances are homogeneous (P&gt;0.05). <br> <br> <br> <br><strong>Question: Are the mean values of the 3 groups statistically significantly different (<em>ie</em>, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people</strong><br></p>
+<p>In this case, the data in the 3 groups are normally distributed (P&gt;0.05) and the variances are homogeneous (P&gt;0.05). <br> <br> <br> <br><strong>Question: Are the mean values of the 3 groups statistically significantly different (<em>ie</em>, do Drug 1 and Drug 2 both reduce cholesterol in the 3 independent groups of people</strong><br></p>
 <p><br><br></p>
 <section id="the-anova-analysis" class="level6">
 <h6 class="anchored" data-anchor-id="the-anova-analysis"><code>5.</code> <strong>THE ANOVA ANALYSIS:</strong></h6>
@@ -723,11 +739,11 @@ Click to see the result of the ANOVA
 </table>
 </div>
 </div>
-<p><em>NB</em> ‘pes’ = partial eta squared effect size:<br> eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.</p>
+<p><em>NB</em> ‘pes’ = partial eta squared effect size:<br> eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.<br><br> Here, P &lt; 8x10<sup>-7</sup>, <em>ie</em> much less than 0.05, and so there is a statistically sigificant difference between at least 2 of the groups.</p>
 </div>
 </div>
 </div>
-<p><br><br> <strong>Tukey multiple comparison:</strong></p>
+<p>To find out which group differs statistically significantly from each other, use a multiple comparison test. <br><br> <strong>Tukey multiple comparison:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>anova_1_factor <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(Cholesterol <span class="sc">~</span> Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -897,7 +913,7 @@ Click to see the ANOVA result
 </table>
 </div>
 </div>
-<p><em>NB</em> ‘pes’ = partial eta squared effect size:<br> eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.</p>
+<p><em>NB</em> ‘pes’ = partial eta squared effect size:<br> eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.<br><br> Here, P &lt; 8x10<sup>-7</sup>, <em>ie</em> much less than 0.05, and so there is a statistically sigificant difference between at least 2 of the groups.</p>
 </div>
 </div>
 </div>
@@ -978,6 +994,7 @@ Click to see the Games-Howell output
 </table>
 </div>
 </div>
+<p>All comparisons have a P-values less than 0.05, and so each group is statistically significantly different to every other</p>
 </div>
 </div>
 </div>
@@ -1643,7 +1660,7 @@ Click to see the table of means and SDs
 <span id="annotated-cell-30-3"><a href="#annotated-cell-30-3" aria-hidden="true" tabindex="-1"></a>anova_table_2 <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="2">2</button><span id="annotated-cell-30-4" class="code-annotation-target"><a href="#annotated-cell-30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Group, <span class="at">y =</span> mean_chol, <span class="at">fill =</span> Gender)) <span class="sc">+</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="3">3</button><span id="annotated-cell-30-5" class="code-annotation-target"><a href="#annotated-cell-30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> dodge, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="4">4</button><span id="annotated-cell-30-6" class="code-annotation-target"><a href="#annotated-cell-30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">position =</span> dodge, <span class="at">width=</span> <span class="fl">0.3</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-30" data-target-annotation="4">4</button><span id="annotated-cell-30-6" class="code-annotation-target"><a href="#annotated-cell-30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">position =</span> dodge, <span class="at">width=</span> <span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="annotated-cell-30-7"><a href="#annotated-cell-30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of 2-Factor ANOVA Cholesterol data"</span>,</span>
 <span id="annotated-cell-30-8"><a href="#annotated-cell-30-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard deviation"</span>,</span>
 <span id="annotated-cell-30-9"><a href="#annotated-cell-30-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1651,7 +1668,7 @@ Click to see the table of means and SDs
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-30" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-30" data-code-lines="1" data-code-annotation="1">Manual adjustment of dodge width so error bars are in the centre of each bar</span>
+<span data-code-cell="annotated-cell-30" data-code-lines="1" data-code-annotation="1">Manual adjustment of dodge width so that males and females are clustered next to each for each group</span>
 </dd>
 <dt data-target-cell="annotated-cell-30" data-target-annotation="2">2</dt>
 <dd>
@@ -1663,7 +1680,7 @@ Click to see the table of means and SDs
 </dd>
 <dt data-target-cell="annotated-cell-30" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-30" data-code-lines="6" data-code-annotation="4">Creates error bars of SD (mean +/- SD)</span>
+<span data-code-cell="annotated-cell-30" data-code-lines="6" data-code-annotation="4">Creates error bars of SD (mean +/- SD), width of the caps and the linewidths of the error bars.</span>
 </dd>
 </dl>
 </div>
@@ -1797,6 +1814,7 @@ Click to see the result of the Shapiro-Wilk test
 </table>
 </div>
 </div>
+<p>The P-values for all groups are &gt;0.05, and so the data are normally distributed.</p>
 </div>
 </div>
 </div>
@@ -1839,6 +1857,7 @@ Click to see the result of the Levene’s test
 </table>
 </div>
 </div>
+<p>P=0.64, and so the variances of the data in the groups are not significantly different.</p>
 </div>
 </div>
 </div>
@@ -1915,7 +1934,7 @@ Click to see the anova
 </div>
 </div>
 </div>
-<p><em>NB<sub>1</sub></em> pes = partial eta square effect sizes:<br>eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.<br><br> <em>NB<sub>2</sub></em> Here, only Group has a statistically significant effect on Cholesterol. Both gender and the interaction term have P-values greater than 0.05 (0.722 and 0.435, respectively). So we could just do a 1-factor anova with Group as the only factor.<br><br></p>
+<p><em>NB<sub>1</sub></em> pes = partial eta square effect sizes:<br>eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.<br><br> <em>NB<sub>2</sub></em> Here, only Group (<em>ie</em> the drug treatment) has a statistically significant effect on Cholesterol. Both gender and the interaction term have P-values greater than 0.05 (0.722 and 0.435, respectively). So gender does not have an effect overall, and the effect of a drug does not depend on the gender of the person receiving it (the Group:Gender interaction term).<br><br></p>
 </div>
 </div>
 </div>
@@ -2669,13 +2688,13 @@ Cholesterol    -0.77 0.28</code></pre>
 <span id="annotated-cell-42-2"><a href="#annotated-cell-42-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-42-3"><a href="#annotated-cell-42-3" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="2">2</button><span id="annotated-cell-42-4" class="code-annotation-target"><a href="#annotated-cell-42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>Cholesterol)) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="3">3</button><span id="annotated-cell-42-5" class="code-annotation-target"><a href="#annotated-cell-42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="annotated-cell-42-6"><a href="#annotated-cell-42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color=</span><span class="st">"steelblue"</span>, <span class="at">fill=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-42-7"><a href="#annotated-cell-42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Cholesterol RM ANOVA Data"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="3">3</button><span id="annotated-cell-42-5" class="code-annotation-target"><a href="#annotated-cell-42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="4">4</button><span id="annotated-cell-42-6" class="code-annotation-target"><a href="#annotated-cell-42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="5">5</button><span id="annotated-cell-42-7" class="code-annotation-target"><a href="#annotated-cell-42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Cholesterol RM ANOVA Data"</span>,</span>
 <span id="annotated-cell-42-8"><a href="#annotated-cell-42-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"(square = mean, thick line = median)"</span>,</span>
 <span id="annotated-cell-42-9"><a href="#annotated-cell-42-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Duration of consumption of margarine"</span>,</span>
 <span id="annotated-cell-42-10"><a href="#annotated-cell-42-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-42-11"><a href="#annotated-cell-42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span><span class="ot">=</span><span class="st">"At start"</span>, <span class="st">"After.4.weeks"</span><span class="ot">=</span><span class="st">"4 Weeks"</span>, <span class="st">"After.8.weeks"</span><span class="ot">=</span><span class="st">"8 Weeks"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="6">6</button><span id="annotated-cell-42-11" class="code-annotation-target"><a href="#annotated-cell-42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span><span class="ot">=</span><span class="st">"At start"</span>, <span class="st">"After.4.weeks"</span><span class="ot">=</span><span class="st">"4 Weeks"</span>, <span class="st">"After.8.weeks"</span><span class="ot">=</span><span class="st">"8 Weeks"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-42" data-target-annotation="1">1</dt>
@@ -2689,6 +2708,18 @@ Cholesterol    -0.77 0.28</code></pre>
 <dt data-target-cell="annotated-cell-42" data-target-annotation="3">3</dt>
 <dd>
 <span data-code-cell="annotated-cell-42" data-code-lines="5" data-code-annotation="3">Creates a boxplot</span>
+</dd>
+<dt data-target-cell="annotated-cell-42" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-42" data-code-lines="6" data-code-annotation="4">Creates a black square to represent the mean value</span>
+</dd>
+<dt data-target-cell="annotated-cell-42" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-42" data-code-lines="7" data-code-annotation="5">Type your title, subtitle and axis titles here</span>
+</dd>
+<dt data-target-cell="annotated-cell-42" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-42" data-code-lines="11" data-code-annotation="6">Renames the categories in the Time column to appear as labels on the x-axis</span>
 </dd>
 </dl>
 </div>
@@ -2787,7 +2818,7 @@ Click to see the table
 <div class="sourceCode cell-code" id="annotated-cell-44"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-44-1"><a href="#annotated-cell-44-1" aria-hidden="true" tabindex="-1"></a>anova_rm_table <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="1">1</button><span id="annotated-cell-44-2" class="code-annotation-target"><a href="#annotated-cell-44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="2">2</button><span id="annotated-cell-44-3" class="code-annotation-target"><a href="#annotated-cell-44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="3">3</button><span id="annotated-cell-44-4" class="code-annotation-target"><a href="#annotated-cell-44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">width=</span><span class="fl">0.2</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="3">3</button><span id="annotated-cell-44-4" class="code-annotation-target"><a href="#annotated-cell-44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="annotated-cell-44-5"><a href="#annotated-cell-44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of RM ANOVA Cholesterol data"</span>,</span>
 <span id="annotated-cell-44-6"><a href="#annotated-cell-44-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard deviation"</span>,</span>
 <span id="annotated-cell-44-7"><a href="#annotated-cell-44-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>) <span class="sc">+</span></span>
@@ -2833,15 +2864,18 @@ Click to see the bar chart
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
 </div>
 </div>
 </div>
 </div>
-<p><br> <br> <strong>4. ASSUMPTIONS</strong><br> <strong>Test if the data in the 3 groups is normally distributed</strong></p>
+</div>
+<p><br> <br> <strong>4. ASSUMPTIONS</strong><br> <strong>Test if the data in the 3 groups are normally distributed</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Time) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(Cholesterol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Time) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(Cholesterol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the Shapiro-Wilk test">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
@@ -3119,13 +3153,14 @@ Click to see the result of the Friedman test
 </table>
 </div>
 </div>
+<p>P=3x10<sup>-7</sup>, much less than 0.05, and so there is a statistically signticant difference</p>
 </div>
 </div>
 </div>
 <p><br><br> <code>5.2b</code> <strong>Effect size</strong><br> Uses the Kendall W effect size measure. The output interprets the value for you.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_effsize</span>(Cholesterol <span class="sc">~</span> Time <span class="sc">|</span> ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_effsize</span>(Cholesterol <span class="sc">~</span> Time <span class="sc">|</span> ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the effect size">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
@@ -3170,8 +3205,8 @@ Click to see the effect size
 </div>
 <p><br><br> <code>5.2c</code> <strong>Multiple comparison (Wilcoxon signed rank test)</strong><br> Do this if the Friedman test gives a P-value &lt;0.05.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the effect size">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
@@ -3252,7 +3287,7 @@ Click to see the effect size
 </div>
 </div>
 </div>
-<p>Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduce the chance of a Type 1 error.</p>
+<p>Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduce the chance of a Type 1 error.<br><br>Here, all groups are statistically signnificantly different to every other group</p>
 </div>
 </div>
 </div>
@@ -3292,19 +3327,19 @@ Upload excel file to RStudio Cloud
 <p><br></p>
 <p><code>2.</code> <strong>Import the data and save it as a dataframe called <em>ancova_chol</em>:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-53"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-53" data-target-annotation="1">1</button><span id="annotated-cell-53-1" class="code-annotation-target"><a href="#annotated-cell-53-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ANCOVA_cholesterol.xlsx"</span>)</span>
-<span id="annotated-cell-53-2"><a href="#annotated-cell-53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-53-3"><a href="#annotated-cell-53-3" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-53" data-target-annotation="2">2</button><span id="annotated-cell-53-4" class="code-annotation-target"><a href="#annotated-cell-53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-54"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-54" data-target-annotation="1">1</button><span id="annotated-cell-54-1" class="code-annotation-target"><a href="#annotated-cell-54-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ANCOVA_cholesterol.xlsx"</span>)</span>
+<span id="annotated-cell-54-2"><a href="#annotated-cell-54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-54-3"><a href="#annotated-cell-54-3" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-54" data-target-annotation="2">2</button><span id="annotated-cell-54-4" class="code-annotation-target"><a href="#annotated-cell-54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-53" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-54" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-53" data-code-lines="1" data-code-annotation="1">Import the data, save it as a dataframe called ‘ancova_chol’</span>
+<span data-code-cell="annotated-cell-54" data-code-lines="1" data-code-annotation="1">Import the data, save it as a dataframe called ‘ancova_chol’</span>
 </dd>
-<dt data-target-cell="annotated-cell-53" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-54" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-53" data-code-lines="4" data-code-annotation="2">View the 1st 6 rows</span>
+<span data-code-cell="annotated-cell-54" data-code-lines="4" data-code-annotation="2">View the 1st 6 rows</span>
 </dd>
 </dl>
 </div>
@@ -3371,8 +3406,8 @@ Click to see the first 6 rows of the dataframe
 </div>
 <p><br> Check the data types of each column:<br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the data types of each variable">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
@@ -3413,16 +3448,16 @@ Click to see the data types of each variable
 <p><br></p>
 <p>You can see that the Group variable is a character (text) variable. However, the Group variable contains categories of treatment, so change it to a factor.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-55"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-55-1"><a href="#annotated-cell-55-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-55" data-target-annotation="1">1</button><span id="annotated-cell-55-2" class="code-annotation-target"><a href="#annotated-cell-55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="fu">as.factor</span>(Group))</span>
-<span id="annotated-cell-55-3"><a href="#annotated-cell-55-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-55-4"><a href="#annotated-cell-55-4" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-55-5"><a href="#annotated-cell-55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-56"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-56-1"><a href="#annotated-cell-56-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-56" data-target-annotation="1">1</button><span id="annotated-cell-56-2" class="code-annotation-target"><a href="#annotated-cell-56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="fu">as.factor</span>(Group))</span>
+<span id="annotated-cell-56-3"><a href="#annotated-cell-56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-56-4"><a href="#annotated-cell-56-4" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-56-5"><a href="#annotated-cell-56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-55" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-56" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-55" data-code-lines="2" data-code-annotation="1">sends the ancova_chol dataframe to <code>mutate()</code> which converts Group to be a factor. Saves the changed dataframe to one with the same name (<em>ie</em> it over-writes the dataframe)</span>
+<span data-code-cell="annotated-cell-56" data-code-lines="2" data-code-annotation="1">sends the ancova_chol dataframe to <code>mutate()</code> which converts Group to be a factor. Saves the changed dataframe to one with the same name (<em>ie</em> it over-writes the dataframe)</span>
 </dd>
 </dl>
 </div>
@@ -3465,11 +3500,11 @@ Click to see the data types of each variable
 </div>
 <p><br> <br>Save the dataframe as an RData file so that you don’t have to do the above again:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(ancova_chol, <span class="at">file =</span> <span class="st">"ancova_chol.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(ancova_chol, <span class="at">file =</span> <span class="st">"ancova_chol.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><br> <code>3.</code> <strong>Explore the data</strong> <br> <code>3a.</code> <strong>Descriptive statistics</strong><br> <br> First, get summary descriptive statistics for Cholesterol grouped by treatment Group:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">data =</span> ancova_chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">data =</span> ancova_chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the summary descriptive statistics for Cholesterol">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
@@ -3512,7 +3547,7 @@ Cholesterol    -1.25 3.79</code></pre>
 </div>
 <p><br>and then obtain the summary descriptive statistics for Age grouped by treatment Group:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Age <span class="sc">~</span> Group, <span class="at">data =</span> ancova_chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Age <span class="sc">~</span> Group, <span class="at">data =</span> ancova_chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the summary descriptive statistics for Age">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
@@ -3549,21 +3584,21 @@ Age    1 20 42.33 7.6   40.6   41.86 7.12  32  57    25 0.47    -1.14 1.7</code>
 </div>
 <p><br><code>3b.</code> <strong>Bar chart</strong><br>First, calculate mean &amp; standard error (SE) cholesterol for each treatment group and save in an object called ‘ancova_mean_table’:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-59"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-59-1"><a href="#annotated-cell-59-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-59" data-target-annotation="1">1</button><span id="annotated-cell-59-2" class="code-annotation-target"><a href="#annotated-cell-59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-59-3"><a href="#annotated-cell-59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-59" data-target-annotation="2">2</button><span id="annotated-cell-59-4" class="code-annotation-target"><a href="#annotated-cell-59-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SE_chol =</span> <span class="fu">se</span>(Cholesterol))</span>
-<span id="annotated-cell-59-5"><a href="#annotated-cell-59-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-59-6"><a href="#annotated-cell-59-6" aria-hidden="true" tabindex="-1"></a>ancova_mean_table </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-60"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-60-1"><a href="#annotated-cell-60-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-60" data-target-annotation="1">1</button><span id="annotated-cell-60-2" class="code-annotation-target"><a href="#annotated-cell-60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-60-3"><a href="#annotated-cell-60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-60" data-target-annotation="2">2</button><span id="annotated-cell-60-4" class="code-annotation-target"><a href="#annotated-cell-60-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SE_chol =</span> <span class="fu">se</span>(Cholesterol))</span>
+<span id="annotated-cell-60-5"><a href="#annotated-cell-60-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-60-6"><a href="#annotated-cell-60-6" aria-hidden="true" tabindex="-1"></a>ancova_mean_table </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-59" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-60" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-59" data-code-lines="2" data-code-annotation="1">Sends ancova_chol to group_by() which groups the data by treatment Group</span>
+<span data-code-cell="annotated-cell-60" data-code-lines="2" data-code-annotation="1">Sends ancova_chol to group_by() which groups the data by treatment Group</span>
 </dd>
-<dt data-target-cell="annotated-cell-59" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-60" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-59" data-code-lines="4" data-code-annotation="2">Creates new columns for mean and SE of cholesterol, placing them in columns titles ‘mean_chol’ and ‘SE_chol’</span>
+<span data-code-cell="annotated-cell-60" data-code-lines="4" data-code-annotation="2">Creates new columns for mean and SE of cholesterol, placing them in columns titles ‘mean_chol’ and ‘SE_chol’</span>
 </dd>
 </dl>
 </div>
@@ -3615,23 +3650,22 @@ Click to see the mean and se values
 </div>
 <p><br>Use the new table object to create the bar chart:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-60"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-60-1"><a href="#annotated-cell-60-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-60-2"><a href="#annotated-cell-60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-60" data-target-annotation="1">1</button><span id="annotated-cell-60-3" class="code-annotation-target"><a href="#annotated-cell-60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>( <span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-60-4"><a href="#annotated-cell-60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>( <span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SE_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SE_chol), <span class="at">width=</span><span class="fl">0.2</span>, <span class="at">colour=</span><span class="st">"black"</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-60" data-target-annotation="2">2</button><span id="annotated-cell-60-5" class="code-annotation-target"><a href="#annotated-cell-60-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-60-6"><a href="#annotated-cell-60-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of Cholesterol data"</span>,</span>
-<span id="annotated-cell-60-7"><a href="#annotated-cell-60-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>,</span>
-<span id="annotated-cell-60-8"><a href="#annotated-cell-60-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-61"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-61-1"><a href="#annotated-cell-61-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-61-2"><a href="#annotated-cell-61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="1">1</button><span id="annotated-cell-61-3" class="code-annotation-target"><a href="#annotated-cell-61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="2">2</button><span id="annotated-cell-61-4" class="code-annotation-target"><a href="#annotated-cell-61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SE_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SE_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-61-5"><a href="#annotated-cell-61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of Cholesterol data"</span>,</span>
+<span id="annotated-cell-61-6"><a href="#annotated-cell-61-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>,</span>
+<span id="annotated-cell-61-7"><a href="#annotated-cell-61-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-60" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-61" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-60" data-code-lines="3" data-code-annotation="1">Uses the mean and se values in the table to create a bar chart with Group on the x-axis and the mean cholesterolo on the y-axis</span>
+<span data-code-cell="annotated-cell-61" data-code-lines="3" data-code-annotation="1">Uses the mean and se values in the table to create a bar chart with Group on the x-axis and the mean cholesterolo on the y-axis</span>
 </dd>
-<dt data-target-cell="annotated-cell-60" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-61" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-60" data-code-lines="5" data-code-annotation="2">Creates error bars using the SE values in the table (mean +/- SE)</span>
+<span data-code-cell="annotated-cell-61" data-code-lines="4" data-code-annotation="2">Creates error bars using the SE values in the table (mean +/- SE)</span>
 </dd>
 </dl>
 </div>
@@ -3662,18 +3696,18 @@ Click to see the bar chart
 </div>
 <p><br> <br><code>4.</code> <strong>Check assumptions of ANCOVA:</strong><br> <code>A.</code> Check relationship of covariate (Age) and outcome (Cholesterol) is linear in the 3 groups:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-61"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-61-1"><a href="#annotated-cell-61-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="1">1</button><span id="annotated-cell-61-2" class="code-annotation-target"><a href="#annotated-cell-61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatter</span>(<span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Cholesterol"</span>, <span class="at">color =</span> <span class="st">"Group"</span>, <span class="at">add =</span> <span class="st">"reg.line"</span>)<span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="2">2</button><span id="annotated-cell-61-3" class="code-annotation-target"><a href="#annotated-cell-61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(<span class="fu">after_stat</span>(eq.label), <span class="fu">after_stat</span>(rr.label), <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Group))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-62"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-62-1"><a href="#annotated-cell-62-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-62" data-target-annotation="1">1</button><span id="annotated-cell-62-2" class="code-annotation-target"><a href="#annotated-cell-62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatter</span>(<span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Cholesterol"</span>, <span class="at">color =</span> <span class="st">"Group"</span>, <span class="at">add =</span> <span class="st">"reg.line"</span>)<span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-62" data-target-annotation="2">2</button><span id="annotated-cell-62-3" class="code-annotation-target"><a href="#annotated-cell-62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(<span class="fu">after_stat</span>(eq.label), <span class="fu">after_stat</span>(rr.label), <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Group))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-61" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-62" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-61" data-code-lines="2" data-code-annotation="1">Creates a scatter plot with Age on the x-axis and Cholesterol on the y-axis, coloured by Group, and adds a regression line</span>
+<span data-code-cell="annotated-cell-62" data-code-lines="2" data-code-annotation="1">Creates a scatter plot with Age on the x-axis and Cholesterol on the y-axis, coloured by Group, and adds a regression line</span>
 </dd>
-<dt data-target-cell="annotated-cell-61" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-62" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-61" data-code-lines="3" data-code-annotation="2">Adds regression equations for each Group Group</span>
+<span data-code-cell="annotated-cell-62" data-code-lines="3" data-code-annotation="2">Adds regression equations for each Group Group</span>
 </dd>
 </dl>
 </div>
@@ -3705,8 +3739,8 @@ Click to see the scatter plot
 <p><br><br> <code>B</code>. Homogeneity of regression slopes. <br>The slopes of the regression lines, formed by the covariate (Age) and the outcome variable (Cholesterol), should be the same for each group.<br></p>
 <p><br>Tested with the interaction term: here, interaction term of ‘Group:Age’ P should be &gt; 0.05 (slopes are not different).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Group<span class="sc">*</span>Age, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Group<span class="sc">*</span>Age, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the interaction term for the homogeneity of regression slopes">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
@@ -3766,14 +3800,14 @@ Click to see the interaction term for the homogeneity of regression slopes
 </table>
 </div>
 </div>
-<p>Here, the Group:Age interaction term P = 0.659.<br><br> <em>NB</em> ‘pes’ = partial eta squared effect size:<br> eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.</p>
+<p>Here, the Group:Age interaction term P = 0.659, and so the slopes of the 3 lines are not significantly different.<br><br> <em>NB</em> ‘pes’ = partial eta squared effect size:<br> eta<sup>2</sup> of 0.01 = small effect,<br>eta<sup>2</sup> of 0.06 = medium effect,<br>eta<sup>2</sup> of 0.14 = large effect.</p>
 </div>
 </div>
 </div>
 <p><br><br> <code>C</code>. Homogeneity of variance for outcomes (cholesterol levels) for each group <br>(P should be &gt;0.05):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(Cholesterol <span class="sc">~</span> Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(Cholesterol <span class="sc">~</span> Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the homogeneity of variance">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
@@ -3814,18 +3848,18 @@ Click to see the homogeneity of variance
 </div>
 <p><br><br> <code>5.</code> <strong>The ANCOVA</strong> <br><code>a.</code> <strong>The analysis:</strong><br> Enter the covariate (here, it is ‘Age’) into the model first - we want to remove the effect of this first before analysing effect of Group.<br> The result is stored in an object called <code>df_ancov</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-64"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-64-1"><a href="#annotated-cell-64-1" aria-hidden="true" tabindex="-1"></a>df_ancov <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-64" data-target-annotation="1">1</button><span id="annotated-cell-64-2" class="code-annotation-target"><a href="#annotated-cell-64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Age <span class="sc">+</span> Group, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-64" data-target-annotation="2">2</button><span id="annotated-cell-64-3" class="code-annotation-target"><a href="#annotated-cell-64-3" aria-hidden="true" tabindex="-1"></a>df_ancov</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-65"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-65-1"><a href="#annotated-cell-65-1" aria-hidden="true" tabindex="-1"></a>df_ancov <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-65" data-target-annotation="1">1</button><span id="annotated-cell-65-2" class="code-annotation-target"><a href="#annotated-cell-65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Age <span class="sc">+</span> Group, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-65" data-target-annotation="2">2</button><span id="annotated-cell-65-3" class="code-annotation-target"><a href="#annotated-cell-65-3" aria-hidden="true" tabindex="-1"></a>df_ancov</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-64" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-65" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-64" data-code-lines="2" data-code-annotation="1">Dataframe sent to anova_test: outcome grouped by covariate + grouping variable. Result stored in a new object called <code>df_ancov</code>.</span>
+<span data-code-cell="annotated-cell-65" data-code-lines="2" data-code-annotation="1">Dataframe sent to anova_test: outcome grouped by covariate + grouping variable. Result stored in a new object called <code>df_ancov</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-64" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-65" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-64" data-code-lines="3" data-code-annotation="2">View the results of the ANCOVA</span>
+<span data-code-cell="annotated-cell-65" data-code-lines="3" data-code-annotation="2">View the results of the ANCOVA</span>
 </dd>
 </dl>
 </div>
@@ -3886,19 +3920,19 @@ Click to see the result of the ANCOVA
 <p>Because P&lt;0.05, we need to do a post-hoc comparison test to find out which group is different from which.<br> (<em>NB</em> this also calculates the adjusted means, so is useful to do even if P&gt;0.05).</p>
 <p><br><code>b.</code> <strong>Post-hoc comparison test:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-65"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-65-1"><a href="#annotated-cell-65-1" aria-hidden="true" tabindex="-1"></a>phc <span class="ot">&lt;-</span> ancova_chol <span class="sc">%&gt;%</span></span>
-<span id="annotated-cell-65-2"><a href="#annotated-cell-65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans_test</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">covariate =</span> Age,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-65" data-target-annotation="1">1</button><span id="annotated-cell-65-3" class="code-annotation-target"><a href="#annotated-cell-65-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-65" data-target-annotation="2">2</button><span id="annotated-cell-65-4" class="code-annotation-target"><a href="#annotated-cell-65-4" aria-hidden="true" tabindex="-1"></a>phc</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-66"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-66-1"><a href="#annotated-cell-66-1" aria-hidden="true" tabindex="-1"></a>phc <span class="ot">&lt;-</span> ancova_chol <span class="sc">%&gt;%</span></span>
+<span id="annotated-cell-66-2"><a href="#annotated-cell-66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans_test</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">covariate =</span> Age,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="1">1</button><span id="annotated-cell-66-3" class="code-annotation-target"><a href="#annotated-cell-66-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="2">2</button><span id="annotated-cell-66-4" class="code-annotation-target"><a href="#annotated-cell-66-4" aria-hidden="true" tabindex="-1"></a>phc</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-65" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-66" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-65" data-code-lines="3" data-code-annotation="1">Dataframe sent to emmeans_test to do a multiple comparison with adjusted means (adjusted for Age). Calculates this for Cholesterol grouped by Group, adjusting for the covariate Age. Bonferroni correction to reduce the chance of a Type 1 error.</span>
+<span data-code-cell="annotated-cell-66" data-code-lines="3" data-code-annotation="1">Dataframe sent to emmeans_test to do a multiple comparison with adjusted means (adjusted for Age). Calculates this for Cholesterol grouped by Group, adjusting for the covariate Age. Bonferroni correction to reduce the chance of a Type 1 error.</span>
 </dd>
-<dt data-target-cell="annotated-cell-65" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-66" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-65" data-code-lines="4" data-code-annotation="2">The results of the multiple comparison are stored in an object called <code>phc</code>, so run this object name to see contents.</span>
+<span data-code-cell="annotated-cell-66" data-code-lines="4" data-code-annotation="2">The results of the multiple comparison are stored in an object called <code>phc</code>, so run this object name to see contents.</span>
 </dd>
 </dl>
 </div>
@@ -3988,13 +4022,13 @@ Click to see the result of the multiple comparison
 </div>
 <p><br><code>c.</code> <strong>The estimated marginal means (= adjusted means) for each group:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-66"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="1">1</button><span id="annotated-cell-66-1" class="code-annotation-target"><a href="#annotated-cell-66-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="ot">&lt;-</span><span class="fu">get_emmeans</span>(phc)</span>
-<span id="annotated-cell-66-2"><a href="#annotated-cell-66-2" aria-hidden="true" tabindex="-1"></a>adj.means</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-67"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-67" data-target-annotation="1">1</button><span id="annotated-cell-67-1" class="code-annotation-target"><a href="#annotated-cell-67-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="ot">&lt;-</span><span class="fu">get_emmeans</span>(phc)</span>
+<span id="annotated-cell-67-2"><a href="#annotated-cell-67-2" aria-hidden="true" tabindex="-1"></a>adj.means</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-66" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-67" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-66" data-code-lines="1" data-code-annotation="1">Gets the estimated marginal means from the phs object created above, and stores them in another object called <code>adj.means</code>. To see them, run the object name.</span>
+<span data-code-cell="annotated-cell-67" data-code-lines="1" data-code-annotation="1">Gets the estimated marginal means from the phs object created above, and stores them in another object called <code>adj.means</code>. To see them, run the object name.</span>
 </dd>
 </dl>
 </div>
@@ -4078,23 +4112,22 @@ Click to see the estimated marginal (adjusted) means
 <p>Compare the bar chart at the start of this section with the one below which shows the estimated marginal means, adjusted for Age.</p>
 <p><br><strong>Bar chart with the adjusted means:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-67"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-67" data-target-annotation="1">1</button><span id="annotated-cell-67-1" class="code-annotation-target"><a href="#annotated-cell-67-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-67-2"><a href="#annotated-cell-67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="annotated-cell-67-3"><a href="#annotated-cell-67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>emmean), </span>
-<span id="annotated-cell-67-4"><a href="#annotated-cell-67-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"steelblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-67" data-target-annotation="2">2</button><span id="annotated-cell-67-5" class="code-annotation-target"><a href="#annotated-cell-67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>emmean<span class="sc">-</span>se, <span class="at">ymax=</span>emmean<span class="sc">+</span>se), <span class="at">width=</span><span class="fl">0.2</span>,   <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-67-6"><a href="#annotated-cell-67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of adjusted means for ANCOVA Cholesterol data"</span>, </span>
-<span id="annotated-cell-67-7"><a href="#annotated-cell-67-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>, </span>
-<span id="annotated-cell-67-8"><a href="#annotated-cell-67-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-68"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-68" data-target-annotation="1">1</button><span id="annotated-cell-68-1" class="code-annotation-target"><a href="#annotated-cell-68-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-68-2"><a href="#annotated-cell-68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="annotated-cell-68-3"><a href="#annotated-cell-68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>emmean), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"steelblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-68" data-target-annotation="2">2</button><span id="annotated-cell-68-4" class="code-annotation-target"><a href="#annotated-cell-68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>emmean<span class="sc">-</span>se, <span class="at">ymax=</span>emmean<span class="sc">+</span>se), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-68-5"><a href="#annotated-cell-68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of adjusted means for ANCOVA Cholesterol data"</span>, </span>
+<span id="annotated-cell-68-6"><a href="#annotated-cell-68-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>, </span>
+<span id="annotated-cell-68-7"><a href="#annotated-cell-68-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-67" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-68" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-67" data-code-lines="1" data-code-annotation="1">Sends the <code>adj.means</code> contents to ggplot() which creates a bar chart with Group on the x-axis and the adjusted means on the y-axis</span>
+<span data-code-cell="annotated-cell-68" data-code-lines="1" data-code-annotation="1">Sends the <code>adj.means</code> contents to ggplot() which creates a bar chart with Group on the x-axis and the adjusted means on the y-axis</span>
 </dd>
-<dt data-target-cell="annotated-cell-67" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-68" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-67" data-code-lines="5" data-code-annotation="2">Error bars created of mean +/- se for each Group.</span>
+<span data-code-cell="annotated-cell-68" data-code-lines="4" data-code-annotation="2">Error bars created of mean +/- se for each Group.</span>
 </dd>
 </dl>
 </div>
