@@ -647,7 +647,7 @@ save(aov_2_factor, file = "aov_2_factor.RData")
 #| echo: TRUE
 #| messages: FALSE
 #| eval: false
-describeBy(Cholesterol ~ Group + Gender, data = aov_2_factor) #<1>
+describeBy(Cholesterol ~ Group + Gender, data = aov_2_factor, quant = c(.25, .75)) #<1>
 ```
 
 1.  Gets descriptives of Cholesterol by Group
@@ -658,7 +658,7 @@ describeBy(Cholesterol ~ Group + Gender, data = aov_2_factor) #<1>
 #| echo: false
 #| messages: FALSE
 #| eval: true
-describeBy(Cholesterol ~ Group + Gender, data = aov_2_factor)
+describeBy(Cholesterol ~ Group + Gender, data = aov_2_factor, quant = c(.25, .75))
 ```
 :::
 
@@ -982,7 +982,7 @@ save(chol_RM, file = "chol_RM.RData")
 #| label: anova_RM_explore
 #| echo: TRUE
 #| eval: false
-   describeBy(Cholesterol ~ Time, data = chol_RM)   #<1>
+   describeBy(Cholesterol ~ Time, data = chol_RM, quant = c(.25, .75))   #<1>
 ```
 
 1.  Groups Cholesterol by Time and gets descriptives for each Time group
@@ -992,7 +992,7 @@ save(chol_RM, file = "chol_RM.RData")
 #| label: anova_RM_explore1
 #| echo: false
 #| eval: true
-   describeBy(Cholesterol ~ Time, data = chol_RM)
+   describeBy(Cholesterol ~ Time, data = chol_RM, quant = c(.25, .75))
 ```
 :::
 
@@ -1384,7 +1384,7 @@ save(ancova_chol, file = "ancova_chol.RData")
 #| label: ancovadesc1
 #| echo: TRUE
 #| eval: false
-describeBy(Cholesterol ~ Group, data = ancova_chol)
+describeBy(Cholesterol ~ Group, data = ancova_chol, quant = c(.25, .75))
 ```
 
 ::: {.callout-note collapse="true" title="Click to see the summary descriptive statistics for Cholesterol" icon="false"}
@@ -1392,7 +1392,7 @@ describeBy(Cholesterol ~ Group, data = ancova_chol)
 #| label: ancovadesc2
 #| echo: false
 #| eval: true
-describeBy(Cholesterol ~ Group, data = ancova_chol)
+describeBy(Cholesterol ~ Group, data = ancova_chol, quant = c(.25, .75))
 ```
 
 You can see that the mean values for Control, Drug 1 and Drug 1 are 140.5, 118.1 and 102.6, respectively.
