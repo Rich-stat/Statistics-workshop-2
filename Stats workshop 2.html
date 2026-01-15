@@ -340,7 +340,7 @@ Click to see the data types
 </div>
 <p><br><br> <strong>3. EXPLORE THE DATA: descriptive statistics and plots</strong><br> <strong>3.1 Descriptives</strong><br> To obtain summary cholesterol descriptive statistics for each group (control, drug1 and drug2) :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">data =</span> anova_1_factor)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">data =</span> anova_1_factor, <span class="at">quant =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
@@ -369,20 +369,20 @@ Click to see the descriptive data
 Group: Control
             vars  n   mean    sd median trimmed   mad min max range  skew
 Cholesterol    1 20 140.45 21.18  138.5  141.38 24.46 102 173    71 -0.15
-            kurtosis   se
-Cholesterol    -1.14 4.74
+            kurtosis   se Q0.25 Q0.75
+Cholesterol    -1.14 4.74 128.5   162
 ------------------------------------------------------------ 
 Group: Drug_1
             vars  n  mean    sd median trimmed   mad min max range  skew
 Cholesterol    1 20 118.1 21.56  114.5  118.56 26.69  82 151    69 -0.03
-            kurtosis   se
-Cholesterol    -1.29 4.82
+            kurtosis   se Q0.25 Q0.75
+Cholesterol    -1.29 4.82 101.5 135.5
 ------------------------------------------------------------ 
 Group: Drug_2
             vars  n   mean    sd median trimmed   mad min max range skew
 Cholesterol    1 20 102.55 16.94    101  101.88 17.79  80 130    50 0.33
-            kurtosis   se
-Cholesterol    -1.25 3.79</code></pre>
+            kurtosis   se Q0.25 Q0.75
+Cholesterol    -1.25 3.79 88.25 111.5</code></pre>
 </div>
 </div>
 </div>

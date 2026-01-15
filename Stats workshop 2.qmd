@@ -155,7 +155,7 @@ save(anova_1_factor, file = "anova_1_factor.RData")
 #| label: explore
 #| echo: TRUE
 #| eval: false
-describeBy(Cholesterol ~ Group, data = anova_1_factor) #<1>
+describeBy(Cholesterol ~ Group, data = anova_1_factor, quant = c(.25, .75)) #<1>
 ```
 
 1.  Produces summary data of Cholesterol grouped by the Group factor from the dataframe anova_1_factor
@@ -165,7 +165,7 @@ describeBy(Cholesterol ~ Group, data = anova_1_factor) #<1>
 #| label: explore1
 #| echo: false
 #| eval: true
-describeBy(Cholesterol ~ Group, data = anova_1_factor)
+describeBy(Cholesterol ~ Group, data = anova_1_factor, quant = c(.25, .75))
 ```
 :::
 
