@@ -24,9 +24,9 @@ library(knitr)
 
 This workshop introduces you to analysing<br>
 
--   the effects of one or two factors on an outcome measured across more than two independent groups of subjects (1-Factor & 2-Factor ANOVAs),<br>
--   the effects of a factor on an outcome measured more than twice from the same subjects (repeated or within-subjects ANOVA),<br>
--   the effect of a factor while controlling for a covariate that also affects an outcome (ANCOVA).<br>
+- the effects of one or two factors on an outcome measured across more than two independent groups of subjects (1-Factor & 2-Factor ANOVAs),<br>
+- the effects of a factor on an outcome measured more than twice from the same subjects (repeated or within-subjects ANOVA),<br>
+- the effect of a factor while controlling for a covariate that also affects an outcome (ANCOVA).<br>
 
 First, open RStudio and a new R Script file. Load the packages that you will be using:
 
@@ -56,12 +56,12 @@ This example is based on an experiment to test if drugs can reduce cholesterol l
 <br> **1. Download the Excel file** `1-Factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
--   Check that the data in the file is 'tidy'
--   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
+- Check that the data in the file is 'tidy'
+- Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
 ![Uploading a file to RStudio](upload%201-factor.png){.lightbox width="70%"}
 
--   In RStudio, locate the file and set the folder location as your working directory.
+- In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br> **2. Import the file to RStudio and store it as a dataframe called *anova_1_factor*.**<br> The `head()` function shows us the first 6 rows:<br>
@@ -546,19 +546,19 @@ This example is one in which subjects are assigned to one of 3 treatment groups 
 **1. Download and prepare the data**<br> Download the excel file `2-factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
--   Check that the data in the file is 'tidy'
--   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
+- Check that the data in the file is 'tidy'
+- Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
 ![Uploading a file to RStudio](upload%202-factor.png){.lightbox width="70%"}
 
--   In RStudio, locate the file and set the folder location as your working directory.
+- In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br>**2. Now import the data**<br>
 
--   Save it as a dataframe called '*aov_2_factor*',
--   view the 1st 6 rows to see the arrangement of the data, and
--   check the data types in each column.
+- Save it as a dataframe called '*aov_2_factor*',
+- view the 1st 6 rows to see the arrangement of the data, and
+- check the data types in each column.
 
 ```{r}
 #| label: import_aov2
@@ -849,7 +849,9 @@ aov_2_factor |>
 *NB~1~* pes = partial eta square effect sizes:<br>eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br><br> *NB~2~* Here, only Group (*ie* the drug treatment) has a statistically significant effect on Cholesterol. Both gender and the interaction term have P-values greater than 0.05 (0.722 and 0.435, respectively). So gender does not have an effect overall, and the effect of a drug does not depend on the gender of the person receiving it (the Group:Gender interaction term).<br><br>
 :::
 
-<br><br><br> **5.2 Multiple comparison test:**<br> Compares every group with every other group.<br><br> *NB* If homogeneity of variance is not true, use the Games_Howell multiple comparison test - see 1-FACTOR ANOVA tab, section 5.2
+<br><br><br> **5.2 Multiple comparison test:**<br> Compares every group with every other group.<br><br>
+`5.2a` If variances in the 2 factors are equal (`4.2` above)<br>
+Use the **Tukey HSD** multiple comparison test.<br> 
 
 ```{r}
 #| label: mc2fact
@@ -859,7 +861,7 @@ aov_2_factor |>
   tukey_hsd(Cholesterol ~ Group + Gender + Group*Gender)
 ```
 
-::: {.callout-note collapse="true" title="Click to see the multiple comparison" icon="false"}
+::: {.callout-note collapse="true" title="Click to see the Tukey HSD multiple comparison output" icon="false"}
 ```{r}
 #| label: mc2fact1
 #| echo: false
@@ -872,6 +874,49 @@ aov_2_factor |>
 <br> *NB~1~*. Here, we only need to do a mult comparison test for Group, because Gender has no statistically significant effect (P\>0.05 in the anova).<br> *NB~2~*. pwr package does not produce power analysis for 2-Factor ANOVA
 :::
 
+<br>
+`5.2b` If homogeneity of variance is NOT true (`4.2` above), use the **Games-Howell** multiple comparison test:<br><br>
+First, create a column in the dataframe for the interaction term<br>
+Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.
+
+```{r}
+#| label: GH_2-factor
+#| echo: TRUE
+#| eval: false
+aov_2_factor <- aov_2_factor |>
+  mutate(inter = interaction(Group, Gender))  #<1>
+
+aov_2_factor |>
+  games_howell_test(Cholesterol ~ inter)  #<2>
+aov_2_factor |>
+  games_howell_test(Cholesterol ~ Group) #<3>
+aov_2_factor |>
+  games_howell_test(Cholesterol ~ Gender) #<4>
+```
+1. Sends the dataframe to the mutate function and creates a new column called 'inter' in which the interaction term is calculated. Stores the revised dataframe with the same name.
+2. Does a multiple comparison for the interaction of Group & Gender
+3. Does a multiple comparison for the Group factor
+4. Does a multiple comparison for the Gender factor
+
+
+::: {.callout-note collapse="true" title="Click to see the Games-Howell multiple comparison test output for a 2-factor ANOVA" icon="false"}
+
+```{r}
+#| label: GH_2-factor2
+#| echo: false
+#| eval: true
+aov_2_factor <- aov_2_factor |>
+  mutate(inter = interaction(Group, Gender))
+
+aov_2_factor |>
+  games_howell_test(Cholesterol ~ inter)
+aov_2_factor |>
+  games_howell_test(Cholesterol ~ Group)
+aov_2_factor |>
+  games_howell_test(Cholesterol ~ Gender)
+```
+:::
+
 <br><br>
 
 ### **REPEATED MEASURES ANOVA**
@@ -881,12 +926,12 @@ When more than two measurements are repeatedly taken from the same subject, use 
 <br>**1. Download the file** `ANOVA_RM_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
--   Check that the data in the file is 'tidy'
--   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
+- Check that the data in the file is 'tidy'
+- Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
 ![Uploading a file to RStudio](upload%20RM.png){.lightbox width="70%"}
 
--   In RStudio, locate the file and set the folder location as your working directory.
+- In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br>
@@ -1165,9 +1210,9 @@ anova_rm <- chol_RM |>  #<1>
 anova_rm
 ```
 
--   Output: P-value, pes = partial eta square effect size. <br>pes = 0.01, small effect \| pes = 0.06, medium effect \| pes = 0.14, large effect
+- Output: P-value, pes = partial eta square effect size. <br>pes = 0.01, small effect \| pes = 0.06, medium effect \| pes = 0.14, large effect
 
--   Sphericity corrections provided: GG = Greenhouse-Geisser; HF = Huynh-Feldt. Use either of these instead of ANOVA if Mauchly's Test for Sphericity is broken (P\<0.05) - as it is in this example!
+- Sphericity corrections provided: GG = Greenhouse-Geisser; HF = Huynh-Feldt. Use either of these instead of ANOVA if Mauchly's Test for Sphericity is broken (P\<0.05) - as it is in this example!
 :::
 
 <br> <br> `5.1b` **Post-hoc multiple comparison test:**<br> ANOVA result is P\<0.05, so we want to see which groups differ from which.<br> Use pairwise t-tests adjusted with Bonferroni correction (use 'p.adj' P-values.)
@@ -1276,12 +1321,12 @@ This uses the same data as for the 1-Factor Anova example, but in this case we a
 <br>`1.` **Download the data**<br> Download the excel file `ANCOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
--   Check that the data in the file is 'tidy'
--   Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
+- Check that the data in the file is 'tidy'
+- Upload it to RStudio Cloud, saving it to a folder for this Statistics Workshop 2 session (*NB* If you are using RStudio on your own laptop, simply save the excel file to a relevant folder on your laptop).
 
 ![Uploading a file to RStudio](upload%20ANCOVA.png){.lightbox width="70%"}
 
--   In RStudio, locate the file and set the folder location as your working directory.
+- In RStudio, locate the file and set the folder location as your working directory.
 :::
 
 <br>

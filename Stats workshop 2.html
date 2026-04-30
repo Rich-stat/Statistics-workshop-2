@@ -1938,18 +1938,18 @@ Click to see the anova
 </div>
 </div>
 </div>
-<p><br><br><br> <strong>5.2 Multiple comparison test:</strong><br> Compares every group with every other group.<br><br> <em>NB</em> If homogeneity of variance is not true, use the Games_Howell multiple comparison test - see 1-FACTOR ANOVA tab, section 5.2</p>
+<p><br><br><br> <strong>5.2 Multiple comparison test:</strong><br> Compares every group with every other group.<br><br> <code>5.2a</code> If variances in the 2 factors are equal (<code>4.2</code> above)<br> Use the <strong>Tukey HSD</strong> multiple comparison test.<br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(Cholesterol <span class="sc">~</span> Group <span class="sc">+</span> Gender <span class="sc">+</span> Group<span class="sc">*</span>Gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the multiple comparison">
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the Tukey HSD multiple comparison output">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click to see the multiple comparison
+Click to see the Tukey HSD multiple comparison output
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -2200,13 +2200,342 @@ Click to see the multiple comparison
 </div>
 </div>
 </div>
+<p><br> <code>5.2b</code> If homogeneity of variance is NOT true (<code>4.2</code> above), use the <strong>Games-Howell</strong> multiple comparison test:<br><br> First, create a column in the dataframe for the interaction term<br> Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-35"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-35-1"><a href="#annotated-cell-35-1" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="ot">&lt;-</span> aov_2_factor <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-35" data-target-annotation="1">1</button><span id="annotated-cell-35-2" class="code-annotation-target"><a href="#annotated-cell-35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inter =</span> <span class="fu">interaction</span>(Group, Gender))</span>
+<span id="annotated-cell-35-3"><a href="#annotated-cell-35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-35-4"><a href="#annotated-cell-35-4" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-35" data-target-annotation="2">2</button><span id="annotated-cell-35-5" class="code-annotation-target"><a href="#annotated-cell-35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">games_howell_test</span>(Cholesterol <span class="sc">~</span> inter)</span>
+<span id="annotated-cell-35-6"><a href="#annotated-cell-35-6" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-35" data-target-annotation="3">3</button><span id="annotated-cell-35-7" class="code-annotation-target"><a href="#annotated-cell-35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">games_howell_test</span>(Cholesterol <span class="sc">~</span> Group)</span>
+<span id="annotated-cell-35-8"><a href="#annotated-cell-35-8" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-35" data-target-annotation="4">4</button><span id="annotated-cell-35-9" class="code-annotation-target"><a href="#annotated-cell-35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">games_howell_test</span>(Cholesterol <span class="sc">~</span> Gender)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-35" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-35" data-code-lines="2" data-code-annotation="1">Sends the dataframe to the mutate function and creates a new column called ‘inter’ in which the interaction term is calculated. Stores the revised dataframe with the same name.</span>
+</dd>
+<dt data-target-cell="annotated-cell-35" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-35" data-code-lines="5" data-code-annotation="2">Does a multiple comparison for the interaction of Group &amp; Gender</span>
+</dd>
+<dt data-target-cell="annotated-cell-35" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-35" data-code-lines="7" data-code-annotation="3">Does a multiple comparison for the Group factor</span>
+</dd>
+<dt data-target-cell="annotated-cell-35" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-35" data-code-lines="9" data-code-annotation="4">Does a multiple comparison for the Gender factor</span>
+</dd>
+</dl>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the Games-Howell multiple comparison test output for a 2-factor ANOVA">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Click to see the Games-Howell multiple comparison test output for a 2-factor ANOVA
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">.y.</th>
+<th style="text-align: left;">group1</th>
+<th style="text-align: left;">group2</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+<th style="text-align: right;">p.adj</th>
+<th style="text-align: left;">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Female</td>
+<td style="text-align: left;">Drug_1.Female</td>
+<td style="text-align: right;">-26.1</td>
+<td style="text-align: right;">-55.147295</td>
+<td style="text-align: right;">2.947295</td>
+<td style="text-align: right;">0.093000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Female</td>
+<td style="text-align: left;">Drug_2.Female</td>
+<td style="text-align: right;">-46.2</td>
+<td style="text-align: right;">-74.966386</td>
+<td style="text-align: right;">-17.433614</td>
+<td style="text-align: right;">0.000947</td>
+<td style="text-align: left;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Female</td>
+<td style="text-align: left;">Control.Male</td>
+<td style="text-align: right;">-9.9</td>
+<td style="text-align: right;">-39.952200</td>
+<td style="text-align: right;">20.152200</td>
+<td style="text-align: right;">0.895000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Female</td>
+<td style="text-align: left;">Drug_1.Male</td>
+<td style="text-align: right;">-28.5</td>
+<td style="text-align: right;">-62.150139</td>
+<td style="text-align: right;">5.150139</td>
+<td style="text-align: right;">0.125000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Female</td>
+<td style="text-align: left;">Drug_2.Male</td>
+<td style="text-align: right;">-39.5</td>
+<td style="text-align: right;">-67.083192</td>
+<td style="text-align: right;">-11.916808</td>
+<td style="text-align: right;">0.003000</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_1.Female</td>
+<td style="text-align: left;">Drug_2.Female</td>
+<td style="text-align: right;">-20.1</td>
+<td style="text-align: right;">-46.192190</td>
+<td style="text-align: right;">5.992190</td>
+<td style="text-align: right;">0.192000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_1.Female</td>
+<td style="text-align: left;">Control.Male</td>
+<td style="text-align: right;">16.2</td>
+<td style="text-align: right;">-11.417990</td>
+<td style="text-align: right;">43.817990</td>
+<td style="text-align: right;">0.453000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_1.Female</td>
+<td style="text-align: left;">Drug_1.Male</td>
+<td style="text-align: right;">-2.4</td>
+<td style="text-align: right;">-34.129375</td>
+<td style="text-align: right;">29.329375</td>
+<td style="text-align: right;">1.000000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_1.Female</td>
+<td style="text-align: left;">Drug_2.Male</td>
+<td style="text-align: right;">-13.4</td>
+<td style="text-align: right;">-38.048603</td>
+<td style="text-align: right;">11.248603</td>
+<td style="text-align: right;">0.530000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_2.Female</td>
+<td style="text-align: left;">Control.Male</td>
+<td style="text-align: right;">36.3</td>
+<td style="text-align: right;">8.991497</td>
+<td style="text-align: right;">63.608503</td>
+<td style="text-align: right;">0.006000</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_2.Female</td>
+<td style="text-align: left;">Drug_1.Male</td>
+<td style="text-align: right;">17.7</td>
+<td style="text-align: right;">-13.792615</td>
+<td style="text-align: right;">49.192615</td>
+<td style="text-align: right;">0.489000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_2.Female</td>
+<td style="text-align: left;">Drug_2.Male</td>
+<td style="text-align: right;">6.7</td>
+<td style="text-align: right;">-17.563556</td>
+<td style="text-align: right;">30.963556</td>
+<td style="text-align: right;">0.947000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Male</td>
+<td style="text-align: left;">Drug_1.Male</td>
+<td style="text-align: right;">-18.6</td>
+<td style="text-align: right;">-51.185103</td>
+<td style="text-align: right;">13.985103</td>
+<td style="text-align: right;">0.477000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control.Male</td>
+<td style="text-align: left;">Drug_2.Male</td>
+<td style="text-align: right;">-29.6</td>
+<td style="text-align: right;">-55.593170</td>
+<td style="text-align: right;">-3.606831</td>
+<td style="text-align: right;">0.021000</td>
+<td style="text-align: left;">*</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_1.Male</td>
+<td style="text-align: left;">Drug_2.Male</td>
+<td style="text-align: right;">-11.0</td>
+<td style="text-align: right;">-41.508852</td>
+<td style="text-align: right;">19.508852</td>
+<td style="text-align: right;">0.844000</td>
+<td style="text-align: left;">ns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 12%">
+<col style="width: 15%">
+<col style="width: 10%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">.y.</th>
+<th style="text-align: left;">group1</th>
+<th style="text-align: left;">group2</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+<th style="text-align: right;">p.adj</th>
+<th style="text-align: left;">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Drug_1</td>
+<td style="text-align: right;">-22.35</td>
+<td style="text-align: right;">-38.83271</td>
+<td style="text-align: right;">-5.8672867</td>
+<td style="text-align: right;">6.0e-03</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Control</td>
+<td style="text-align: left;">Drug_2</td>
+<td style="text-align: right;">-37.90</td>
+<td style="text-align: right;">-52.71925</td>
+<td style="text-align: right;">-23.0807481</td>
+<td style="text-align: right;">9.0e-07</td>
+<td style="text-align: left;">****</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Drug_1</td>
+<td style="text-align: left;">Drug_2</td>
+<td style="text-align: right;">-15.55</td>
+<td style="text-align: right;">-30.53568</td>
+<td style="text-align: right;">-0.5643203</td>
+<td style="text-align: right;">4.1e-02</td>
+<td style="text-align: left;">*</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 8%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">.y.</th>
+<th style="text-align: left;">group1</th>
+<th style="text-align: left;">group2</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">conf.low</th>
+<th style="text-align: right;">conf.high</th>
+<th style="text-align: right;">p.adj</th>
+<th style="text-align: left;">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cholesterol</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">-1.866667</td>
+<td style="text-align: right;">-14.97397</td>
+<td style="text-align: right;">11.24064</td>
+<td style="text-align: right;">0.777</td>
+<td style="text-align: left;">ns</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <p><br><br></p>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>When more than two measurements are repeatedly taken from the same subject, use a repeated measures ANOVA to identify if the mean measurements taken at the different times are significantly different.<br> Here, cholesterol was measured in 18 subjects at the start and then 4 weeks and 8 weeks after they were asked to consume a margerine that is designed to reduce cholesterol. Does cholesterol fall in the 18 people (irrespective of their starting level of cholesterol)?<br></p>
 <p><br><strong>1. Download the file</strong> <code>ANOVA_RM_cholesterol.xlsx</code> from Canvas to your Downloads folder and make it available to RStudio.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Upload excel file to RStudio Cloud">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2215,7 +2544,7 @@ Upload excel file to RStudio Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Check that the data in the file is ‘tidy’</li>
@@ -2243,7 +2572,7 @@ Upload excel file to RStudio Cloud
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>chol_RM</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the whole dataframe">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2252,7 +2581,7 @@ Click to see the whole dataframe
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The data is tidy: each row represents one observation and each column is a different variable:</p>
 <div class="cell">
@@ -2549,7 +2878,7 @@ Click to see the whole dataframe
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the types of data in each column">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2558,7 +2887,7 @@ Click to see the types of data in each column
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -2593,7 +2922,7 @@ Click to see the types of data in each column
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the types of data in each column">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2602,7 +2931,7 @@ Click to see the types of data in each column
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -2634,18 +2963,18 @@ Click to see the types of data in each column
 </div>
 <p><br> <br> <strong>3. EXPLORE THE DATA</strong><br> <br> <code>3.1</code> <strong>Get the descriptive summary data:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-41"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-41" data-target-annotation="1">1</button><span id="annotated-cell-41-1" class="code-annotation-target"><a href="#annotated-cell-41-1" aria-hidden="true" tabindex="-1"></a>   <span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">data =</span> chol_RM, <span class="at">quant =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-42"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="1">1</button><span id="annotated-cell-42-1" class="code-annotation-target"><a href="#annotated-cell-42-1" aria-hidden="true" tabindex="-1"></a>   <span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">data =</span> chol_RM, <span class="at">quant =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-41" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-42" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-41" data-code-lines="1" data-code-annotation="1">Groups Cholesterol by Time and gets descriptives for each Time group</span>
+<span data-code-cell="annotated-cell-42" data-code-lines="1" data-code-annotation="1">Groups Cholesterol by Time and gets descriptives for each Time group</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the summary descriptive statistics for each Time group">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2654,7 +2983,7 @@ Click to see the summary descriptive statistics for each Time group
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2684,48 +3013,48 @@ Cholesterol    -0.77 0.28  5.74  7.22</code></pre>
 </div>
 <p><br><br> <code>3.2</code> <strong>Boxplot and bar plot:</strong><br> <br> <strong>The Boxplot</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-42"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="1">1</button><span id="annotated-cell-42-1" class="code-annotation-target"><a href="#annotated-cell-42-1" aria-hidden="true" tabindex="-1"></a>chol_RM<span class="sc">$</span>Time <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(chol_RM<span class="sc">$</span>Time, <span class="st">"Before"</span>, <span class="st">"After.4.weeks"</span>, <span class="st">"After.8.weeks"</span>)</span>
-<span id="annotated-cell-42-2"><a href="#annotated-cell-42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-42-3"><a href="#annotated-cell-42-3" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="2">2</button><span id="annotated-cell-42-4" class="code-annotation-target"><a href="#annotated-cell-42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>Cholesterol)) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="3">3</button><span id="annotated-cell-42-5" class="code-annotation-target"><a href="#annotated-cell-42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="4">4</button><span id="annotated-cell-42-6" class="code-annotation-target"><a href="#annotated-cell-42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="5">5</button><span id="annotated-cell-42-7" class="code-annotation-target"><a href="#annotated-cell-42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Cholesterol RM ANOVA Data"</span>,</span>
-<span id="annotated-cell-42-8"><a href="#annotated-cell-42-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"(square = mean, thick line = median)"</span>,</span>
-<span id="annotated-cell-42-9"><a href="#annotated-cell-42-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Duration of consumption of margarine"</span>,</span>
-<span id="annotated-cell-42-10"><a href="#annotated-cell-42-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-42" data-target-annotation="6">6</button><span id="annotated-cell-42-11" class="code-annotation-target"><a href="#annotated-cell-42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span><span class="ot">=</span><span class="st">"At start"</span>, <span class="st">"After.4.weeks"</span><span class="ot">=</span><span class="st">"4 Weeks"</span>, <span class="st">"After.8.weeks"</span><span class="ot">=</span><span class="st">"8 Weeks"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-43"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="1">1</button><span id="annotated-cell-43-1" class="code-annotation-target"><a href="#annotated-cell-43-1" aria-hidden="true" tabindex="-1"></a>chol_RM<span class="sc">$</span>Time <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(chol_RM<span class="sc">$</span>Time, <span class="st">"Before"</span>, <span class="st">"After.4.weeks"</span>, <span class="st">"After.8.weeks"</span>)</span>
+<span id="annotated-cell-43-2"><a href="#annotated-cell-43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-43-3"><a href="#annotated-cell-43-3" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="2">2</button><span id="annotated-cell-43-4" class="code-annotation-target"><a href="#annotated-cell-43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>Cholesterol)) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="3">3</button><span id="annotated-cell-43-5" class="code-annotation-target"><a href="#annotated-cell-43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="4">4</button><span id="annotated-cell-43-6" class="code-annotation-target"><a href="#annotated-cell-43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="5">5</button><span id="annotated-cell-43-7" class="code-annotation-target"><a href="#annotated-cell-43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Boxplot of Cholesterol RM ANOVA Data"</span>,</span>
+<span id="annotated-cell-43-8"><a href="#annotated-cell-43-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"(square = mean, thick line = median)"</span>,</span>
+<span id="annotated-cell-43-9"><a href="#annotated-cell-43-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Duration of consumption of margarine"</span>,</span>
+<span id="annotated-cell-43-10"><a href="#annotated-cell-43-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="6">6</button><span id="annotated-cell-43-11" class="code-annotation-target"><a href="#annotated-cell-43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span><span class="ot">=</span><span class="st">"At start"</span>, <span class="st">"After.4.weeks"</span><span class="ot">=</span><span class="st">"4 Weeks"</span>, <span class="st">"After.8.weeks"</span><span class="ot">=</span><span class="st">"8 Weeks"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-42" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-43" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-42" data-code-lines="1" data-code-annotation="1">This selects the <em>Time</em> column in the <em>chol_RM</em> dataframe, and ensures that the Time categories appear in the graph in the order specified here (default is to display them in alphabetical order).</span>
+<span data-code-cell="annotated-cell-43" data-code-lines="1" data-code-annotation="1">This selects the <em>Time</em> column in the <em>chol_RM</em> dataframe, and ensures that the Time categories appear in the graph in the order specified here (default is to display them in alphabetical order).</span>
 </dd>
-<dt data-target-cell="annotated-cell-42" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-43" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-42" data-code-lines="4" data-code-annotation="2">Sends the dataframe to ggplot() and puts Time on the x-axis and Cholesterol on the y-axis</span>
+<span data-code-cell="annotated-cell-43" data-code-lines="4" data-code-annotation="2">Sends the dataframe to ggplot() and puts Time on the x-axis and Cholesterol on the y-axis</span>
 </dd>
-<dt data-target-cell="annotated-cell-42" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-43" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-42" data-code-lines="5" data-code-annotation="3">Creates a boxplot</span>
+<span data-code-cell="annotated-cell-43" data-code-lines="5" data-code-annotation="3">Creates a boxplot</span>
 </dd>
-<dt data-target-cell="annotated-cell-42" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-43" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-42" data-code-lines="6" data-code-annotation="4">Creates a black square to represent the mean value</span>
+<span data-code-cell="annotated-cell-43" data-code-lines="6" data-code-annotation="4">Creates a black square to represent the mean value</span>
 </dd>
-<dt data-target-cell="annotated-cell-42" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-43" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-42" data-code-lines="7" data-code-annotation="5">Type your title, subtitle and axis titles here</span>
+<span data-code-cell="annotated-cell-43" data-code-lines="7" data-code-annotation="5">Type your title, subtitle and axis titles here</span>
 </dd>
-<dt data-target-cell="annotated-cell-42" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-43" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-42" data-code-lines="11" data-code-annotation="6">Renames the categories in the Time column to appear as labels on the x-axis</span>
+<span data-code-cell="annotated-cell-43" data-code-lines="11" data-code-annotation="6">Renames the categories in the Time column to appear as labels on the x-axis</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the boxplot">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2734,7 +3063,7 @@ Click to see the boxplot
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -2750,26 +3079,26 @@ Click to see the boxplot
 </div>
 <p><br><br> <strong>The Barplot</strong><br> 1st calculate the mean and SD values and store them in a table object called <code>anova_rm_table</code>:<br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-43"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-43-1"><a href="#annotated-cell-43-1" aria-hidden="true" tabindex="-1"></a>anova_rm_table <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="1">1</button><span id="annotated-cell-43-2" class="code-annotation-target"><a href="#annotated-cell-43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Time) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-43-3"><a href="#annotated-cell-43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-43" data-target-annotation="2">2</button><span id="annotated-cell-43-4" class="code-annotation-target"><a href="#annotated-cell-43-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD_chol =</span> <span class="fu">sd</span>(Cholesterol))</span>
-<span id="annotated-cell-43-5"><a href="#annotated-cell-43-5" aria-hidden="true" tabindex="-1"></a>anova_rm_table</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-44"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-44-1"><a href="#annotated-cell-44-1" aria-hidden="true" tabindex="-1"></a>anova_rm_table <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="1">1</button><span id="annotated-cell-44-2" class="code-annotation-target"><a href="#annotated-cell-44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Time) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-44-3"><a href="#annotated-cell-44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="2">2</button><span id="annotated-cell-44-4" class="code-annotation-target"><a href="#annotated-cell-44-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD_chol =</span> <span class="fu">sd</span>(Cholesterol))</span>
+<span id="annotated-cell-44-5"><a href="#annotated-cell-44-5" aria-hidden="true" tabindex="-1"></a>anova_rm_table</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-43" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-44" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-43" data-code-lines="2" data-code-annotation="1">Groups the data by Time group</span>
+<span data-code-cell="annotated-cell-44" data-code-lines="2" data-code-annotation="1">Groups the data by Time group</span>
 </dd>
-<dt data-target-cell="annotated-cell-43" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-44" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-43" data-code-lines="4" data-code-annotation="2">Calculates the mean and SD Cholesterol values and puts them in columns called mean_chol and SD_chol</span>
+<span data-code-cell="annotated-cell-44" data-code-lines="4" data-code-annotation="2">Calculates the mean and SD Cholesterol values and puts them in columns called mean_chol and SD_chol</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the table">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2778,7 +3107,7 @@ Click to see the table
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-41" class="callout-41-contents callout-collapse collapse">
+<div id="callout-42" class="callout-42-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -2815,37 +3144,37 @@ Click to see the table
 </div>
 <p><br><br> Then use the values in the new table to make the bar chart:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-44"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-44-1"><a href="#annotated-cell-44-1" aria-hidden="true" tabindex="-1"></a>anova_rm_table <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="1">1</button><span id="annotated-cell-44-2" class="code-annotation-target"><a href="#annotated-cell-44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="2">2</button><span id="annotated-cell-44-3" class="code-annotation-target"><a href="#annotated-cell-44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="3">3</button><span id="annotated-cell-44-4" class="code-annotation-target"><a href="#annotated-cell-44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-44-5"><a href="#annotated-cell-44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of RM ANOVA Cholesterol data"</span>,</span>
-<span id="annotated-cell-44-6"><a href="#annotated-cell-44-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard deviation"</span>,</span>
-<span id="annotated-cell-44-7"><a href="#annotated-cell-44-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-44" data-target-annotation="4">4</button><span id="annotated-cell-44-8" class="code-annotation-target"><a href="#annotated-cell-44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span><span class="ot">=</span><span class="st">"At start"</span>, <span class="st">"After.4.weeks"</span><span class="ot">=</span><span class="st">"4 Weeks"</span>, <span class="st">"After.8.weeks"</span><span class="ot">=</span><span class="st">"8 Weeks"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-45"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-45-1"><a href="#annotated-cell-45-1" aria-hidden="true" tabindex="-1"></a>anova_rm_table <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-45" data-target-annotation="1">1</button><span id="annotated-cell-45-2" class="code-annotation-target"><a href="#annotated-cell-45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-45" data-target-annotation="2">2</button><span id="annotated-cell-45-3" class="code-annotation-target"><a href="#annotated-cell-45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-45" data-target-annotation="3">3</button><span id="annotated-cell-45-4" class="code-annotation-target"><a href="#annotated-cell-45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Time, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SD_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SD_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-45-5"><a href="#annotated-cell-45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of RM ANOVA Cholesterol data"</span>,</span>
+<span id="annotated-cell-45-6"><a href="#annotated-cell-45-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard deviation"</span>,</span>
+<span id="annotated-cell-45-7"><a href="#annotated-cell-45-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-45" data-target-annotation="4">4</button><span id="annotated-cell-45-8" class="code-annotation-target"><a href="#annotated-cell-45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Before"</span><span class="ot">=</span><span class="st">"At start"</span>, <span class="st">"After.4.weeks"</span><span class="ot">=</span><span class="st">"4 Weeks"</span>, <span class="st">"After.8.weeks"</span><span class="ot">=</span><span class="st">"8 Weeks"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-44" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-45" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-44" data-code-lines="2" data-code-annotation="1">Sends the new table with means and SDs to ggplot()</span>
+<span data-code-cell="annotated-cell-45" data-code-lines="2" data-code-annotation="1">Sends the new table with means and SDs to ggplot()</span>
 </dd>
-<dt data-target-cell="annotated-cell-44" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-45" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-44" data-code-lines="3" data-code-annotation="2">Creates a bar chart with Time on the x-axis and mean cholesterol on the y-axis.</span>
+<span data-code-cell="annotated-cell-45" data-code-lines="3" data-code-annotation="2">Creates a bar chart with Time on the x-axis and mean cholesterol on the y-axis.</span>
 </dd>
-<dt data-target-cell="annotated-cell-44" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-45" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-44" data-code-lines="4" data-code-annotation="3">Creates error bars from the SD values (mean +/- SD)</span>
+<span data-code-cell="annotated-cell-45" data-code-lines="4" data-code-annotation="3">Creates error bars from the SD values (mean +/- SD)</span>
 </dd>
-<dt data-target-cell="annotated-cell-44" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-45" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-44" data-code-lines="8" data-code-annotation="4">Changes the names of the Time categories from those in the table to specified labels.</span>
+<span data-code-cell="annotated-cell-45" data-code-lines="8" data-code-annotation="4">Changes the names of the Time categories from those in the table to specified labels.</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the bar chart">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-42-contents" aria-controls="callout-42" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2854,7 +3183,7 @@ Click to see the bar chart
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-42" class="callout-42-contents callout-collapse collapse">
+<div id="callout-43" class="callout-43-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -2878,7 +3207,7 @@ Click to see the bar chart
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(Cholesterol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the Shapiro-Wilk test">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-43-contents" aria-controls="callout-43" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2887,7 +3216,7 @@ Click to see the result of the Shapiro-Wilk test
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-43" class="callout-43-contents callout-collapse collapse">
+<div id="callout-44" class="callout-44-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -2938,28 +3267,28 @@ Click to see the result of the Shapiro-Wilk test
 <h6 class="anchored" data-anchor-id="if-the-data-is-normally-distributed"><code>5.1</code> <strong>IF THE DATA IS NORMALLY DISTRIBUTED</strong> <br></h6>
 <p><code>5.1a</code> <strong>Repeated measures ANOVA</strong>, including Mauchly’s Sphericity test<br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-46"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-46" data-target-annotation="1">1</button><span id="annotated-cell-46-1" class="code-annotation-target"><a href="#annotated-cell-46-1" aria-hidden="true" tabindex="-1"></a>anova_rm <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-46" data-target-annotation="2">2</button><span id="annotated-cell-46-2" class="code-annotation-target"><a href="#annotated-cell-46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(<span class="at">dv =</span> Cholesterol, <span class="at">wid =</span> ID, <span class="at">within =</span> Time, <span class="at">effect.size =</span> <span class="st">"pes"</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-46" data-target-annotation="3">3</button><span id="annotated-cell-46-3" class="code-annotation-target"><a href="#annotated-cell-46-3" aria-hidden="true" tabindex="-1"></a>anova_rm</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-47"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-47" data-target-annotation="1">1</button><span id="annotated-cell-47-1" class="code-annotation-target"><a href="#annotated-cell-47-1" aria-hidden="true" tabindex="-1"></a>anova_rm <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-47" data-target-annotation="2">2</button><span id="annotated-cell-47-2" class="code-annotation-target"><a href="#annotated-cell-47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(<span class="at">dv =</span> Cholesterol, <span class="at">wid =</span> ID, <span class="at">within =</span> Time, <span class="at">effect.size =</span> <span class="st">"pes"</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-47" data-target-annotation="3">3</button><span id="annotated-cell-47-3" class="code-annotation-target"><a href="#annotated-cell-47-3" aria-hidden="true" tabindex="-1"></a>anova_rm</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-46" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-47" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-46" data-code-lines="1" data-code-annotation="1">The chol_RM dataframe is sent to the anova_test() function. Results are stored in a new object called <code>anova_rm</code> (you can call it whatever you like.)</span>
+<span data-code-cell="annotated-cell-47" data-code-lines="1" data-code-annotation="1">The chol_RM dataframe is sent to the anova_test() function. Results are stored in a new object called <code>anova_rm</code> (you can call it whatever you like.)</span>
 </dd>
-<dt data-target-cell="annotated-cell-46" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-47" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-46" data-code-lines="2" data-code-annotation="2">dv = the data outcome variable, wid = the subject ID, within = the within-subject grouping variable</span>
+<span data-code-cell="annotated-cell-47" data-code-lines="2" data-code-annotation="2">dv = the data outcome variable, wid = the subject ID, within = the within-subject grouping variable</span>
 </dd>
-<dt data-target-cell="annotated-cell-46" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-47" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-46" data-code-lines="3" data-code-annotation="3">View the contents of the new anova_RM object</span>
+<span data-code-cell="annotated-cell-47" data-code-lines="3" data-code-annotation="3">View the contents of the new anova_RM object</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the anova">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-44-contents" aria-controls="callout-44" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -2968,7 +3297,7 @@ Click to see the result of the anova
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-44" class="callout-44-contents callout-collapse collapse">
+<div id="callout-45" class="callout-45-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -2996,25 +3325,25 @@ $`Sphericity Corrections`
 </div>
 <p><br> <br> <code>5.1b</code> <strong>Post-hoc multiple comparison test:</strong><br> ANOVA result is P&lt;0.05, so we want to see which groups differ from which.<br> Use pairwise t-tests adjusted with Bonferroni correction (use ‘p.adj’ P-values.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-47"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-47-1"><a href="#annotated-cell-47-1" aria-hidden="true" tabindex="-1"></a>aov_rm_phoc <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-47" data-target-annotation="1">1</button><span id="annotated-cell-47-2" class="code-annotation-target"><a href="#annotated-cell-47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">paired =</span> T, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span>
-<span id="annotated-cell-47-3"><a href="#annotated-cell-47-3" aria-hidden="true" tabindex="-1"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-47" data-target-annotation="2">2</button><span id="annotated-cell-47-4" class="code-annotation-target"><a href="#annotated-cell-47-4" aria-hidden="true" tabindex="-1"></a>aov_rm_phoc</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-48"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-48-1"><a href="#annotated-cell-48-1" aria-hidden="true" tabindex="-1"></a>aov_rm_phoc <span class="ot">&lt;-</span> chol_RM <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-48" data-target-annotation="1">1</button><span id="annotated-cell-48-2" class="code-annotation-target"><a href="#annotated-cell-48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">paired =</span> T, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span>
+<span id="annotated-cell-48-3"><a href="#annotated-cell-48-3" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-48" data-target-annotation="2">2</button><span id="annotated-cell-48-4" class="code-annotation-target"><a href="#annotated-cell-48-4" aria-hidden="true" tabindex="-1"></a>aov_rm_phoc</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-47" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-48" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-47" data-code-lines="2" data-code-annotation="1">chol_RM dataframe sent to pairwise test; Cholesterol data is grouped by Time</span>
+<span data-code-cell="annotated-cell-48" data-code-lines="2" data-code-annotation="1">chol_RM dataframe sent to pairwise test; Cholesterol data is grouped by Time</span>
 </dd>
-<dt data-target-cell="annotated-cell-47" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-48" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-47" data-code-lines="4" data-code-annotation="2">Results are stored in a new object called <code>aov_rm_phoc</code></span>
+<span data-code-cell="annotated-cell-48" data-code-lines="4" data-code-annotation="2">Results are stored in a new object called <code>aov_rm_phoc</code></span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the multiple comparison">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-45-contents" aria-controls="callout-45" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3023,7 +3352,7 @@ Click to see the result of the multiple comparison
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-45" class="callout-45-contents callout-collapse collapse">
+<div id="callout-46" class="callout-46-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3104,19 +3433,19 @@ Click to see the result of the multiple comparison
 <h6 class="anchored" data-anchor-id="if-the-data-is-not-normally-distributed-1"><code>5.2</code>. <strong>IF THE DATA IS NOT NORMALLY DISTRIBUTED</strong></h6>
 <p><code>5.2a</code> <strong>The Friedman test</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-48"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-48-1"><a href="#annotated-cell-48-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-48" data-target-annotation="1">1</button><span id="annotated-cell-48-2" class="code-annotation-target"><a href="#annotated-cell-48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_test</span>(Cholesterol <span class="sc">~</span> Time <span class="sc">|</span> ID)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-49"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-49-1"><a href="#annotated-cell-49-1" aria-hidden="true" tabindex="-1"></a>chol_RM <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-49" data-target-annotation="1">1</button><span id="annotated-cell-49-2" class="code-annotation-target"><a href="#annotated-cell-49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_test</span>(Cholesterol <span class="sc">~</span> Time <span class="sc">|</span> ID)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-48" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-49" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-48" data-code-lines="2" data-code-annotation="1">Friedman test carried out on the Cholesterol data grouped by Time category, and ordered by the ID number of each person</span>
+<span data-code-cell="annotated-cell-49" data-code-lines="2" data-code-annotation="1">Friedman test carried out on the Cholesterol data grouped by Time category, and ordered by the ID number of each person</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the Friedman test">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-46-contents" aria-controls="callout-46" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3125,7 +3454,7 @@ Click to see the result of the Friedman test
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-46" class="callout-46-contents callout-collapse collapse">
+<div id="callout-47" class="callout-47-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3163,7 +3492,7 @@ Click to see the result of the Friedman test
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">friedman_effsize</span>(Cholesterol <span class="sc">~</span> Time <span class="sc">|</span> ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the effect size">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-47-contents" aria-controls="callout-47" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3172,7 +3501,7 @@ Click to see the effect size
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-47" class="callout-47-contents callout-collapse collapse">
+<div id="callout-48" class="callout-48-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3209,7 +3538,7 @@ Click to see the effect size
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(Cholesterol <span class="sc">~</span> Time, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the multiple comparisons">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-48-contents" aria-controls="callout-48" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-49-contents" aria-controls="callout-49" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3218,7 +3547,7 @@ Click to see the multiple comparisons
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-48" class="callout-48-contents callout-collapse collapse">
+<div id="callout-49" class="callout-49-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3297,7 +3626,7 @@ Click to see the multiple comparisons
 <p>This uses the same data as for the 1-Factor Anova example, but in this case we also have the age of each participant. We know that cholesterol is affected by age (from previous studies), so we want to control for this variable and analyse only if drug treatment group (control, drug 1 or drug 2) influences cholesterol levels irrespective of age.</p>
 <p><br><code>1.</code> <strong>Download the data</strong><br> Download the excel file <code>ANCOVA_cholesterol.xlsx</code> from Canvas to your Downloads folder and make it available to RStudio.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Upload excel file to RStudio Cloud">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-49-contents" aria-controls="callout-49" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-50-contents" aria-controls="callout-50" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -3306,7 +3635,7 @@ Upload excel file to RStudio Cloud
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-49" class="callout-49-contents callout-collapse collapse">
+<div id="callout-50" class="callout-50-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>Check that the data in the file is ‘tidy’</li>
@@ -3327,25 +3656,25 @@ Upload excel file to RStudio Cloud
 <p><br></p>
 <p><code>2.</code> <strong>Import the data and save it as a dataframe called <em>ancova_chol</em>:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-54"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-54" data-target-annotation="1">1</button><span id="annotated-cell-54-1" class="code-annotation-target"><a href="#annotated-cell-54-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ANCOVA_cholesterol.xlsx"</span>)</span>
-<span id="annotated-cell-54-2"><a href="#annotated-cell-54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-54-3"><a href="#annotated-cell-54-3" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-54" data-target-annotation="2">2</button><span id="annotated-cell-54-4" class="code-annotation-target"><a href="#annotated-cell-54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-55"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-55" data-target-annotation="1">1</button><span id="annotated-cell-55-1" class="code-annotation-target"><a href="#annotated-cell-55-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ANCOVA_cholesterol.xlsx"</span>)</span>
+<span id="annotated-cell-55-2"><a href="#annotated-cell-55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-55-3"><a href="#annotated-cell-55-3" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-55" data-target-annotation="2">2</button><span id="annotated-cell-55-4" class="code-annotation-target"><a href="#annotated-cell-55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-54" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-55" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-54" data-code-lines="1" data-code-annotation="1">Import the data, save it as a dataframe called ‘ancova_chol’</span>
+<span data-code-cell="annotated-cell-55" data-code-lines="1" data-code-annotation="1">Import the data, save it as a dataframe called ‘ancova_chol’</span>
 </dd>
-<dt data-target-cell="annotated-cell-54" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-55" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-54" data-code-lines="4" data-code-annotation="2">View the 1st 6 rows</span>
+<span data-code-cell="annotated-cell-55" data-code-lines="4" data-code-annotation="2">View the 1st 6 rows</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the first 6 rows of the dataframe">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-50-contents" aria-controls="callout-50" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3354,7 +3683,7 @@ Click to see the first 6 rows of the dataframe
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-50" class="callout-50-contents callout-collapse collapse">
+<div id="callout-51" class="callout-51-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3410,7 +3739,7 @@ Click to see the first 6 rows of the dataframe
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the data types of each variable">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-51-contents" aria-controls="callout-51" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3419,7 +3748,7 @@ Click to see the data types of each variable
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-51" class="callout-51-contents callout-collapse collapse">
+<div id="callout-52" class="callout-52-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3448,22 +3777,22 @@ Click to see the data types of each variable
 <p><br></p>
 <p>You can see that the Group variable is a character (text) variable. However, the Group variable contains categories of treatment, so change it to a factor.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-56"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-56-1"><a href="#annotated-cell-56-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-56" data-target-annotation="1">1</button><span id="annotated-cell-56-2" class="code-annotation-target"><a href="#annotated-cell-56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="fu">as.factor</span>(Group))</span>
-<span id="annotated-cell-56-3"><a href="#annotated-cell-56-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-56-4"><a href="#annotated-cell-56-4" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-56-5"><a href="#annotated-cell-56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-57"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-57-1"><a href="#annotated-cell-57-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-57" data-target-annotation="1">1</button><span id="annotated-cell-57-2" class="code-annotation-target"><a href="#annotated-cell-57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="fu">as.factor</span>(Group))</span>
+<span id="annotated-cell-57-3"><a href="#annotated-cell-57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-57-4"><a href="#annotated-cell-57-4" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-57-5"><a href="#annotated-cell-57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-56" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-57" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-56" data-code-lines="2" data-code-annotation="1">sends the ancova_chol dataframe to <code>mutate()</code> which converts Group to be a factor. Saves the changed dataframe to one with the same name (<em>ie</em> it over-writes the dataframe)</span>
+<span data-code-cell="annotated-cell-57" data-code-lines="2" data-code-annotation="1">sends the ancova_chol dataframe to <code>mutate()</code> which converts Group to be a factor. Saves the changed dataframe to one with the same name (<em>ie</em> it over-writes the dataframe)</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the data types of each variable">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-52-contents" aria-controls="callout-52" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3472,7 +3801,7 @@ Click to see the data types of each variable
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-52" class="callout-52-contents callout-collapse collapse">
+<div id="callout-53" class="callout-53-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3507,7 +3836,7 @@ Click to see the data types of each variable
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">data =</span> ancova_chol, <span class="at">quant =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">75</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the summary descriptive statistics for Cholesterol">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-53-contents" aria-controls="callout-53" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3516,7 +3845,7 @@ Click to see the summary descriptive statistics for Cholesterol
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-53" class="callout-53-contents callout-collapse collapse">
+<div id="callout-54" class="callout-54-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3550,7 +3879,7 @@ Cholesterol    -1.25 3.79 88.25 111.5</code></pre>
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(Age <span class="sc">~</span> Group, <span class="at">data =</span> ancova_chol)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the summary descriptive statistics for Age">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-54-contents" aria-controls="callout-54" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3559,7 +3888,7 @@ Click to see the summary descriptive statistics for Age
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-54" class="callout-54-contents callout-collapse collapse">
+<div id="callout-55" class="callout-55-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -3584,27 +3913,27 @@ Age    1 20 42.33 7.6   40.6   41.86 7.12  32  57    25 0.47    -1.14 1.7</code>
 </div>
 <p><br><code>3b.</code> <strong>Bar chart</strong><br>First, calculate mean &amp; standard error (SE) cholesterol for each treatment group and save in an object called ‘ancova_mean_table’:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-60"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-60-1"><a href="#annotated-cell-60-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-60" data-target-annotation="1">1</button><span id="annotated-cell-60-2" class="code-annotation-target"><a href="#annotated-cell-60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-60-3"><a href="#annotated-cell-60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-60" data-target-annotation="2">2</button><span id="annotated-cell-60-4" class="code-annotation-target"><a href="#annotated-cell-60-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SE_chol =</span> <span class="fu">se</span>(Cholesterol))</span>
-<span id="annotated-cell-60-5"><a href="#annotated-cell-60-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-60-6"><a href="#annotated-cell-60-6" aria-hidden="true" tabindex="-1"></a>ancova_mean_table </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-61"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-61-1"><a href="#annotated-cell-61-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="1">1</button><span id="annotated-cell-61-2" class="code-annotation-target"><a href="#annotated-cell-61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-61-3"><a href="#annotated-cell-61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_chol =</span> <span class="fu">mean</span>(Cholesterol),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="2">2</button><span id="annotated-cell-61-4" class="code-annotation-target"><a href="#annotated-cell-61-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">SE_chol =</span> <span class="fu">se</span>(Cholesterol))</span>
+<span id="annotated-cell-61-5"><a href="#annotated-cell-61-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-61-6"><a href="#annotated-cell-61-6" aria-hidden="true" tabindex="-1"></a>ancova_mean_table </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-60" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-61" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-60" data-code-lines="2" data-code-annotation="1">Sends ancova_chol to group_by() which groups the data by treatment Group</span>
+<span data-code-cell="annotated-cell-61" data-code-lines="2" data-code-annotation="1">Sends ancova_chol to group_by() which groups the data by treatment Group</span>
 </dd>
-<dt data-target-cell="annotated-cell-60" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-61" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-60" data-code-lines="4" data-code-annotation="2">Creates new columns for mean and SE of cholesterol, placing them in columns titles ‘mean_chol’ and ‘SE_chol’</span>
+<span data-code-cell="annotated-cell-61" data-code-lines="4" data-code-annotation="2">Creates new columns for mean and SE of cholesterol, placing them in columns titles ‘mean_chol’ and ‘SE_chol’</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the mean and se values">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-55-contents" aria-controls="callout-55" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-56-contents" aria-controls="callout-56" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3613,7 +3942,7 @@ Click to see the mean and se values
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-55" class="callout-55-contents callout-collapse collapse">
+<div id="callout-56" class="callout-56-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3650,28 +3979,28 @@ Click to see the mean and se values
 </div>
 <p><br>Use the new table object to create the bar chart:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-61"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-61-1"><a href="#annotated-cell-61-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-61-2"><a href="#annotated-cell-61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="1">1</button><span id="annotated-cell-61-3" class="code-annotation-target"><a href="#annotated-cell-61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-61" data-target-annotation="2">2</button><span id="annotated-cell-61-4" class="code-annotation-target"><a href="#annotated-cell-61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SE_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SE_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-61-5"><a href="#annotated-cell-61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of Cholesterol data"</span>,</span>
-<span id="annotated-cell-61-6"><a href="#annotated-cell-61-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>,</span>
-<span id="annotated-cell-61-7"><a href="#annotated-cell-61-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-62"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-62-1"><a href="#annotated-cell-62-1" aria-hidden="true" tabindex="-1"></a>ancova_mean_table <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-62-2"><a href="#annotated-cell-62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-62" data-target-annotation="1">1</button><span id="annotated-cell-62-3" class="code-annotation-target"><a href="#annotated-cell-62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>mean_chol), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"lightblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-62" data-target-annotation="2">2</button><span id="annotated-cell-62-4" class="code-annotation-target"><a href="#annotated-cell-62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>mean_chol<span class="sc">-</span>SE_chol, <span class="at">ymax=</span>mean_chol<span class="sc">+</span>SE_chol), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-62-5"><a href="#annotated-cell-62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of Cholesterol data"</span>,</span>
+<span id="annotated-cell-62-6"><a href="#annotated-cell-62-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>,</span>
+<span id="annotated-cell-62-7"><a href="#annotated-cell-62-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-61" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-62" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-61" data-code-lines="3" data-code-annotation="1">Uses the mean and se values in the table to create a bar chart with Group on the x-axis and the mean cholesterolo on the y-axis</span>
+<span data-code-cell="annotated-cell-62" data-code-lines="3" data-code-annotation="1">Uses the mean and se values in the table to create a bar chart with Group on the x-axis and the mean cholesterolo on the y-axis</span>
 </dd>
-<dt data-target-cell="annotated-cell-61" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-62" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-61" data-code-lines="4" data-code-annotation="2">Creates error bars using the SE values in the table (mean +/- SE)</span>
+<span data-code-cell="annotated-cell-62" data-code-lines="4" data-code-annotation="2">Creates error bars using the SE values in the table (mean +/- SE)</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the bar chart">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-56-contents" aria-controls="callout-56" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3680,7 +4009,7 @@ Click to see the bar chart
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-56" class="callout-56-contents callout-collapse collapse">
+<div id="callout-57" class="callout-57-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3696,24 +4025,24 @@ Click to see the bar chart
 </div>
 <p><br> <br><code>4.</code> <strong>Check assumptions of ANCOVA:</strong><br> <code>A.</code> Check relationship of covariate (Age) and outcome (Cholesterol) is linear in the 3 groups:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-62"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-62-1"><a href="#annotated-cell-62-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-62" data-target-annotation="1">1</button><span id="annotated-cell-62-2" class="code-annotation-target"><a href="#annotated-cell-62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatter</span>(<span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Cholesterol"</span>, <span class="at">color =</span> <span class="st">"Group"</span>, <span class="at">add =</span> <span class="st">"reg.line"</span>)<span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-62" data-target-annotation="2">2</button><span id="annotated-cell-62-3" class="code-annotation-target"><a href="#annotated-cell-62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(<span class="fu">after_stat</span>(eq.label), <span class="fu">after_stat</span>(rr.label), <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Group))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-63"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-63-1"><a href="#annotated-cell-63-1" aria-hidden="true" tabindex="-1"></a>ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-63" data-target-annotation="1">1</button><span id="annotated-cell-63-2" class="code-annotation-target"><a href="#annotated-cell-63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggscatter</span>(<span class="at">x =</span> <span class="st">"Age"</span>, <span class="at">y =</span> <span class="st">"Cholesterol"</span>, <span class="at">color =</span> <span class="st">"Group"</span>, <span class="at">add =</span> <span class="st">"reg.line"</span>)<span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-63" data-target-annotation="2">2</button><span id="annotated-cell-63-3" class="code-annotation-target"><a href="#annotated-cell-63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span>(<span class="fu">aes</span>(<span class="at">label =</span>  <span class="fu">paste</span>(<span class="fu">after_stat</span>(eq.label), <span class="fu">after_stat</span>(rr.label), <span class="at">sep =</span> <span class="st">"~~~~"</span>), <span class="at">color =</span> Group))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-62" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-63" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-62" data-code-lines="2" data-code-annotation="1">Creates a scatter plot with Age on the x-axis and Cholesterol on the y-axis, coloured by Group, and adds a regression line</span>
+<span data-code-cell="annotated-cell-63" data-code-lines="2" data-code-annotation="1">Creates a scatter plot with Age on the x-axis and Cholesterol on the y-axis, coloured by Group, and adds a regression line</span>
 </dd>
-<dt data-target-cell="annotated-cell-62" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-63" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-62" data-code-lines="3" data-code-annotation="2">Adds regression equations for each Group Group</span>
+<span data-code-cell="annotated-cell-63" data-code-lines="3" data-code-annotation="2">Adds regression equations for each Group Group</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the scatter plot">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-57-contents" aria-controls="callout-57" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3722,7 +4051,7 @@ Click to see the scatter plot
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-57" class="callout-57-contents callout-collapse collapse">
+<div id="callout-58" class="callout-58-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3743,7 +4072,7 @@ Click to see the scatter plot
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Group<span class="sc">*</span>Age, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the interaction term for the homogeneity of regression slopes">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-58-contents" aria-controls="callout-58" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3752,7 +4081,7 @@ Click to see the interaction term for the homogeneity of regression slopes
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-58" class="callout-58-contents callout-collapse collapse">
+<div id="callout-59" class="callout-59-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3810,7 +4139,7 @@ Click to see the interaction term for the homogeneity of regression slopes
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(Cholesterol <span class="sc">~</span> Group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the homogeneity of variance">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-59-contents" aria-controls="callout-59" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-60-contents" aria-controls="callout-60" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3819,7 +4148,7 @@ Click to see the homogeneity of variance
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-59" class="callout-59-contents callout-collapse collapse">
+<div id="callout-60" class="callout-60-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3848,24 +4177,24 @@ Click to see the homogeneity of variance
 </div>
 <p><br><br> <code>5.</code> <strong>The ANCOVA</strong> <br><code>a.</code> <strong>The analysis:</strong><br> Enter the covariate (here, it is ‘Age’) into the model first - we want to remove the effect of this first before analysing effect of Group.<br> The result is stored in an object called <code>df_ancov</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-65"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-65-1"><a href="#annotated-cell-65-1" aria-hidden="true" tabindex="-1"></a>df_ancov <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-65" data-target-annotation="1">1</button><span id="annotated-cell-65-2" class="code-annotation-target"><a href="#annotated-cell-65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Age <span class="sc">+</span> Group, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-65" data-target-annotation="2">2</button><span id="annotated-cell-65-3" class="code-annotation-target"><a href="#annotated-cell-65-3" aria-hidden="true" tabindex="-1"></a>df_ancov</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-66"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-66-1"><a href="#annotated-cell-66-1" aria-hidden="true" tabindex="-1"></a>df_ancov <span class="ot">&lt;-</span> ancova_chol <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="1">1</button><span id="annotated-cell-66-2" class="code-annotation-target"><a href="#annotated-cell-66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(Cholesterol <span class="sc">~</span> Age <span class="sc">+</span> Group, <span class="at">effect.size =</span> <span class="st">'pes'</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="2">2</button><span id="annotated-cell-66-3" class="code-annotation-target"><a href="#annotated-cell-66-3" aria-hidden="true" tabindex="-1"></a>df_ancov</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-65" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-66" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-65" data-code-lines="2" data-code-annotation="1">Dataframe sent to anova_test: outcome grouped by covariate + grouping variable. Result stored in a new object called <code>df_ancov</code>.</span>
+<span data-code-cell="annotated-cell-66" data-code-lines="2" data-code-annotation="1">Dataframe sent to anova_test: outcome grouped by covariate + grouping variable. Result stored in a new object called <code>df_ancov</code>.</span>
 </dd>
-<dt data-target-cell="annotated-cell-65" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-66" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-65" data-code-lines="3" data-code-annotation="2">View the results of the ANCOVA</span>
+<span data-code-cell="annotated-cell-66" data-code-lines="3" data-code-annotation="2">View the results of the ANCOVA</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the ANCOVA">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-60-contents" aria-controls="callout-60" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-61-contents" aria-controls="callout-61" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3874,7 +4203,7 @@ Click to see the result of the ANCOVA
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-60" class="callout-60-contents callout-collapse collapse">
+<div id="callout-61" class="callout-61-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -3920,25 +4249,25 @@ Click to see the result of the ANCOVA
 <p>Because P&lt;0.05, we need to do a post-hoc comparison test to find out which group is different from which.<br> (<em>NB</em> this also calculates the adjusted means, so is useful to do even if P&gt;0.05).</p>
 <p><br><code>b.</code> <strong>Post-hoc comparison test:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-66"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-66-1"><a href="#annotated-cell-66-1" aria-hidden="true" tabindex="-1"></a>phc <span class="ot">&lt;-</span> ancova_chol <span class="sc">%&gt;%</span></span>
-<span id="annotated-cell-66-2"><a href="#annotated-cell-66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans_test</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">covariate =</span> Age,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="1">1</button><span id="annotated-cell-66-3" class="code-annotation-target"><a href="#annotated-cell-66-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-66" data-target-annotation="2">2</button><span id="annotated-cell-66-4" class="code-annotation-target"><a href="#annotated-cell-66-4" aria-hidden="true" tabindex="-1"></a>phc</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-67"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-67-1"><a href="#annotated-cell-67-1" aria-hidden="true" tabindex="-1"></a>phc <span class="ot">&lt;-</span> ancova_chol <span class="sc">%&gt;%</span></span>
+<span id="annotated-cell-67-2"><a href="#annotated-cell-67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans_test</span>(Cholesterol <span class="sc">~</span> Group, <span class="at">covariate =</span> Age,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-67" data-target-annotation="1">1</button><span id="annotated-cell-67-3" class="code-annotation-target"><a href="#annotated-cell-67-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-67" data-target-annotation="2">2</button><span id="annotated-cell-67-4" class="code-annotation-target"><a href="#annotated-cell-67-4" aria-hidden="true" tabindex="-1"></a>phc</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-66" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-67" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-66" data-code-lines="3" data-code-annotation="1">Dataframe sent to emmeans_test to do a multiple comparison with adjusted means (adjusted for Age). Calculates this for Cholesterol grouped by Group, adjusting for the covariate Age. Bonferroni correction to reduce the chance of a Type 1 error.</span>
+<span data-code-cell="annotated-cell-67" data-code-lines="3" data-code-annotation="1">Dataframe sent to emmeans_test to do a multiple comparison with adjusted means (adjusted for Age). Calculates this for Cholesterol grouped by Group, adjusting for the covariate Age. Bonferroni correction to reduce the chance of a Type 1 error.</span>
 </dd>
-<dt data-target-cell="annotated-cell-66" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-67" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-66" data-code-lines="4" data-code-annotation="2">The results of the multiple comparison are stored in an object called <code>phc</code>, so run this object name to see contents.</span>
+<span data-code-cell="annotated-cell-67" data-code-lines="4" data-code-annotation="2">The results of the multiple comparison are stored in an object called <code>phc</code>, so run this object name to see contents.</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the result of the multiple comparison">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-61-contents" aria-controls="callout-61" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-62-contents" aria-controls="callout-62" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -3947,7 +4276,7 @@ Click to see the result of the multiple comparison
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-61" class="callout-61-contents callout-collapse collapse">
+<div id="callout-62" class="callout-62-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -4022,19 +4351,19 @@ Click to see the result of the multiple comparison
 </div>
 <p><br><code>c.</code> <strong>The estimated marginal means (= adjusted means) for each group:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-67"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-67" data-target-annotation="1">1</button><span id="annotated-cell-67-1" class="code-annotation-target"><a href="#annotated-cell-67-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="ot">&lt;-</span><span class="fu">get_emmeans</span>(phc)</span>
-<span id="annotated-cell-67-2"><a href="#annotated-cell-67-2" aria-hidden="true" tabindex="-1"></a>adj.means</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-68"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-68" data-target-annotation="1">1</button><span id="annotated-cell-68-1" class="code-annotation-target"><a href="#annotated-cell-68-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="ot">&lt;-</span><span class="fu">get_emmeans</span>(phc)</span>
+<span id="annotated-cell-68-2"><a href="#annotated-cell-68-2" aria-hidden="true" tabindex="-1"></a>adj.means</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-67" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-68" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-67" data-code-lines="1" data-code-annotation="1">Gets the estimated marginal means from the phs object created above, and stores them in another object called <code>adj.means</code>. To see them, run the object name.</span>
+<span data-code-cell="annotated-cell-68" data-code-lines="1" data-code-annotation="1">Gets the estimated marginal means from the phs object created above, and stores them in another object called <code>adj.means</code>. To see them, run the object name.</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the estimated marginal (adjusted) means">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-62-contents" aria-controls="callout-62" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-63-contents" aria-controls="callout-63" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -4043,7 +4372,7 @@ Click to see the estimated marginal (adjusted) means
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-62" class="callout-62-contents callout-collapse collapse">
+<div id="callout-63" class="callout-63-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
@@ -4112,28 +4441,28 @@ Click to see the estimated marginal (adjusted) means
 <p>Compare the bar chart at the start of this section with the one below which shows the estimated marginal means, adjusted for Age.</p>
 <p><br><strong>Bar chart with the adjusted means:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-68"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-68" data-target-annotation="1">1</button><span id="annotated-cell-68-1" class="code-annotation-target"><a href="#annotated-cell-68-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-68-2"><a href="#annotated-cell-68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="annotated-cell-68-3"><a href="#annotated-cell-68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>emmean), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"steelblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-68" data-target-annotation="2">2</button><span id="annotated-cell-68-4" class="code-annotation-target"><a href="#annotated-cell-68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>emmean<span class="sc">-</span>se, <span class="at">ymax=</span>emmean<span class="sc">+</span>se), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="annotated-cell-68-5"><a href="#annotated-cell-68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of adjusted means for ANCOVA Cholesterol data"</span>, </span>
-<span id="annotated-cell-68-6"><a href="#annotated-cell-68-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>, </span>
-<span id="annotated-cell-68-7"><a href="#annotated-cell-68-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-69"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-69" data-target-annotation="1">1</button><span id="annotated-cell-69-1" class="code-annotation-target"><a href="#annotated-cell-69-1" aria-hidden="true" tabindex="-1"></a>adj.means <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-69-2"><a href="#annotated-cell-69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="annotated-cell-69-3"><a href="#annotated-cell-69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">y=</span>emmean), <span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">fill=</span><span class="st">"steelblue"</span>, <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-69" data-target-annotation="2">2</button><span id="annotated-cell-69-4" class="code-annotation-target"><a href="#annotated-cell-69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group, <span class="at">ymin=</span>emmean<span class="sc">-</span>se, <span class="at">ymax=</span>emmean<span class="sc">+</span>se), <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">alpha=</span><span class="fl">0.75</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="annotated-cell-69-5"><a href="#annotated-cell-69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar chart of adjusted means for ANCOVA Cholesterol data"</span>, </span>
+<span id="annotated-cell-69-6"><a href="#annotated-cell-69-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Bars = standard error"</span>, </span>
+<span id="annotated-cell-69-7"><a href="#annotated-cell-69-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Cholesterol (mg/dL)"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-68" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-69" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-68" data-code-lines="1" data-code-annotation="1">Sends the <code>adj.means</code> contents to ggplot() which creates a bar chart with Group on the x-axis and the adjusted means on the y-axis</span>
+<span data-code-cell="annotated-cell-69" data-code-lines="1" data-code-annotation="1">Sends the <code>adj.means</code> contents to ggplot() which creates a bar chart with Group on the x-axis and the adjusted means on the y-axis</span>
 </dd>
-<dt data-target-cell="annotated-cell-68" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-69" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-68" data-code-lines="4" data-code-annotation="2">Error bars created of mean +/- se for each Group.</span>
+<span data-code-cell="annotated-cell-69" data-code-lines="4" data-code-annotation="2">Error bars created of mean +/- se for each Group.</span>
 </dd>
 </dl>
 </div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the bar chart with the estimated marginal (adjusted) means">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-63-contents" aria-controls="callout-63" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-64-contents" aria-controls="callout-64" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -4142,7 +4471,7 @@ Click to see the bar chart with the estimated marginal (adjusted) means
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-63" class="callout-63-contents callout-collapse collapse">
+<div id="callout-64" class="callout-64-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="cell-output-display">
