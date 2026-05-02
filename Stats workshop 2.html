@@ -1818,7 +1818,7 @@ Click to see the result of the Shapiro-Wilk test
 </div>
 </div>
 </div>
-<p><br><br> <strong>4.2 Test if the variances in the groups are equal:</strong></p>
+<p><br><br> <code>4.2</code> <strong>Test if the variances in the groups are equal:</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(Cholesterol <span class="sc">~</span> Group<span class="sc">*</span>Gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1938,7 +1938,7 @@ Click to see the anova
 </div>
 </div>
 </div>
-<p><br><br><br> <strong>5.2 Multiple comparison test:</strong><br> Compares every group with every other group.<br><br> <code>5.2a</code> If variances in the 2 factors are equal (<code>4.2</code> above)<br> Use the <strong>Tukey HSD</strong> multiple comparison test.<br></p>
+<p><br><br> <code>5.2</code> <strong>Multiple comparison test:</strong><br> Compares every group with every other group.<br><br> <code>5.2a</code> If variances in the 2 factors are equal (<code>4.2</code> above), use the <strong>Tukey HSD</strong> multiple comparison test.<br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(Cholesterol <span class="sc">~</span> Group <span class="sc">+</span> Gender <span class="sc">+</span> Group<span class="sc">*</span>Gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2200,7 +2200,11 @@ Click to see the Tukey HSD multiple comparison output
 </div>
 </div>
 </div>
-<p><br> <code>5.2b</code> If homogeneity of variance is NOT true (<code>4.2</code> above), use the <strong>Games-Howell</strong> multiple comparison test:<br><br> First, create a column in the dataframe for the interaction term<br> Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.</p>
+<p><br> <code>5.2b</code> If homogeneity of variance is NOT true (<code>4.2</code> above), use the <strong>Games-Howell</strong> multiple comparison test:<br></p>
+<ul>
+<li>First, create a column in the dataframe for the interaction term.<br></li>
+<li>Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-35"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-35-1"><a href="#annotated-cell-35-1" aria-hidden="true" tabindex="-1"></a>aov_2_factor <span class="ot">&lt;-</span> aov_2_factor <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-35" data-target-annotation="1">1</button><span id="annotated-cell-35-2" class="code-annotation-target"><a href="#annotated-cell-35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">inter =</span> <span class="fu">interaction</span>(Group, Gender))</span>

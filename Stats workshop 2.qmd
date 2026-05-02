@@ -48,7 +48,7 @@ library(FSA)
 
 <br> <br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: panel-tabset
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: panel-tabset
 ### **1-FACTOR ANOVA**
 
 This example is based on an experiment to test if drugs can reduce cholesterol levels. Subjects were randomly divided into 3 groups: One group is given no drug (control group), the second is given Drug 1 and the third group is given Drug 2.
@@ -802,7 +802,7 @@ aov_2_factor |>
 The P-values for all groups are \>0.05, and so the data are normally distributed.
 :::
 
-<br><br> **4.2 Test if the variances in the groups are equal:**
+<br><br> `4.2` **Test if the variances in the groups are equal:**
 
 ```{r}
 #| label: var2fact
@@ -849,9 +849,7 @@ aov_2_factor |>
 *NB~1~* pes = partial eta square effect sizes:<br>eta^2^ of 0.01 = small effect,<br>eta^2^ of 0.06 = medium effect,<br>eta^2^ of 0.14 = large effect.<br><br> *NB~2~* Here, only Group (*ie* the drug treatment) has a statistically significant effect on Cholesterol. Both gender and the interaction term have P-values greater than 0.05 (0.722 and 0.435, respectively). So gender does not have an effect overall, and the effect of a drug does not depend on the gender of the person receiving it (the Group:Gender interaction term).<br><br>
 :::
 
-<br><br><br> **5.2 Multiple comparison test:**<br> Compares every group with every other group.<br><br>
-`5.2a` If variances in the 2 factors are equal (`4.2` above)<br>
-Use the **Tukey HSD** multiple comparison test.<br> 
+<br><br> `5.2` **Multiple comparison test:**<br> Compares every group with every other group.<br><br> `5.2a` If variances in the 2 factors are equal (`4.2` above), use the **Tukey HSD** multiple comparison test.<br>
 
 ```{r}
 #| label: mc2fact
@@ -874,10 +872,10 @@ aov_2_factor |>
 <br> *NB~1~*. Here, we only need to do a mult comparison test for Group, because Gender has no statistically significant effect (P\>0.05 in the anova).<br> *NB~2~*. pwr package does not produce power analysis for 2-Factor ANOVA
 :::
 
-<br>
-`5.2b` If homogeneity of variance is NOT true (`4.2` above), use the **Games-Howell** multiple comparison test:<br><br>
-First, create a column in the dataframe for the interaction term<br>
-Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.
+<br> `5.2b` If homogeneity of variance is NOT true (`4.2` above), use the **Games-Howell** multiple comparison test:<br> 
+
+- First, create a column in the dataframe for the interaction term.<br> 
+- Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.
 
 ```{r}
 #| label: GH_2-factor
@@ -893,14 +891,13 @@ aov_2_factor |>
 aov_2_factor |>
   games_howell_test(Cholesterol ~ Gender) #<4>
 ```
-1. Sends the dataframe to the mutate function and creates a new column called 'inter' in which the interaction term is calculated. Stores the revised dataframe with the same name.
-2. Does a multiple comparison for the interaction of Group & Gender
-3. Does a multiple comparison for the Group factor
-4. Does a multiple comparison for the Gender factor
 
+1.  Sends the dataframe to the mutate function and creates a new column called 'inter' in which the interaction term is calculated. Stores the revised dataframe with the same name.
+2.  Does a multiple comparison for the interaction of Group & Gender
+3.  Does a multiple comparison for the Group factor
+4.  Does a multiple comparison for the Gender factor
 
 ::: {.callout-note collapse="true" title="Click to see the Games-Howell multiple comparison test output for a 2-factor ANOVA" icon="false"}
-
 ```{r}
 #| label: GH_2-factor2
 #| echo: false
@@ -1719,4 +1716,4 @@ adj.means |>
        y = "Cholesterol (mg/dL)")
 ```
 :::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
