@@ -53,7 +53,7 @@ library(FSA)
 
 This example is based on an experiment to test if drugs can reduce cholesterol levels. Subjects were randomly divided into 3 groups: One group is given no drug (control group), the second is given Drug 1 and the third group is given Drug 2.
 
-<br> **1. Download the Excel file** `1-Factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
+<br> **1. Download the Excel file** [1-Factor_ANOVA_cholesterol.xlsx](https://kingstonuniversity-my.sharepoint.com/:x:/g/personal/ku11417_kingston_ac_uk/IQBqe4vRCqtaQZkUCsQXz_YFAQY7HNFEAVfAsx9N1GevNyU?e=h6fgHF) from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 - Check that the data in the file is 'tidy'
@@ -543,7 +543,7 @@ Use the `p.adj` value to decide if a comparison is statistically significantly d
 
 This example is one in which subjects are assigned to one of 3 treatment groups (Factor 1: Control, Drug 1 or Drug 2, as in the 1-Factor example). However, in this case we also want to find out if gender (Factor 2) affects the cholesterol results as well as treatment, and whether the effect of treatment depends on the gender (an interaction of the two factors)<br>
 
-**1. Download and prepare the data**<br> Download the excel file `2-factor_ANOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
+**1. Download and prepare the data**<br> Download the excel file [2-factor_ANOVA_cholesterol.xlsx](https://kingstonuniversity-my.sharepoint.com/:x:/g/personal/ku11417_kingston_ac_uk/IQBwHoT-hmy4RoYHZWIcrl-CAUCnuYRgSQD2SshYSLXKsIE?e=aqUyvs) from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 - Check that the data in the file is 'tidy'
@@ -872,9 +872,9 @@ aov_2_factor |>
 <br> *NB~1~*. Here, we only need to do a mult comparison test for Group, because Gender has no statistically significant effect (P\>0.05 in the anova).<br> *NB~2~*. pwr package does not produce power analysis for 2-Factor ANOVA
 :::
 
-<br> `5.2b` If homogeneity of variance is NOT true (`4.2` above), use the **Games-Howell** multiple comparison test:<br> 
+<br> `5.2b` If homogeneity of variance is NOT true (`4.2` above), use the **Games-Howell** multiple comparison test:<br>
 
-- First, create a column in the dataframe for the interaction term.<br> 
+- First, create a column in the dataframe for the interaction term.<br>
 - Then, one has to do 3 separate Games-Howell tests: one for each of the factors and one for the interaction.
 
 ```{r}
@@ -920,7 +920,7 @@ aov_2_factor |>
 
 When more than two measurements are repeatedly taken from the same subject, use a repeated measures ANOVA to identify if the mean measurements taken at the different times are significantly different.<br> Here, cholesterol was measured in 18 subjects at the start and then 4 weeks and 8 weeks after they were asked to consume a margerine that is designed to reduce cholesterol. Does cholesterol fall in the 18 people (irrespective of their starting level of cholesterol)?<br>
 
-<br>**1. Download the file** `ANOVA_RM_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
+<br>**1. Download the file** [ANOVA_RM_cholesterol.xlsx](https://kingstonuniversity-my.sharepoint.com/:x:/g/personal/ku11417_kingston_ac_uk/IQCQomrPXIAsRIlzuCV4FE7BAWXxkSgcviim1IQvcxgS7ts?e=S6hLiN) from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 - Check that the data in the file is 'tidy'
@@ -1315,7 +1315,7 @@ Use the p.adj P-values; these are adjusted by the Bonferroni correction to reduc
 
 This uses the same data as for the 1-Factor Anova example, but in this case we also have the age of each participant. We know that cholesterol is affected by age (from previous studies), so we want to control for this variable and analyse only if drug treatment group (control, drug 1 or drug 2) influences cholesterol levels irrespective of age.
 
-<br>`1.` **Download the data**<br> Download the excel file `ANCOVA_cholesterol.xlsx` from Canvas to your Downloads folder and make it available to RStudio.
+<br>`1.` **Download the data**<br> Download the excel file [ANCOVA_cholesterol.xlsx](https://kingstonuniversity-my.sharepoint.com/:x:/g/personal/ku11417_kingston_ac_uk/IQDKNaugiVWnTriFRHVADTdaAZ5r9nDMZhwiKYiPQ3vM_eI?e=HQbrnK) from Canvas to your Downloads folder and make it available to RStudio.
 
 ::: {.callout-note collapse="true" title="Upload excel file to RStudio Cloud" icon="true"}
 - Check that the data in the file is 'tidy'
